@@ -58,7 +58,6 @@
         android:id="@+id/some_id"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginTop="517dp"
         android:layout_marginBottom="8dp"
         android:gravity="center_horizontal|top"
         android:lineSpacingExtra="-2sp"
@@ -67,8 +66,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button"
