@@ -18,6 +18,9 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtils.setWindowStatusBarColor(this,R.color.main_green);
+
+
 
         binding = HomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
