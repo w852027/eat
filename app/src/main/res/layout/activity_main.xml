@@ -7,23 +7,23 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/register"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/border2"
+        android:background="@drawable/border_register"
         android:text="註冊"
         android:textColor="#ffffff"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/some_id2" />
+        app:layout_constraintTop_toBottomOf="@+id/start" />
 
     <TextView
-        android:id="@+id/some_id2"
+        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="24dp"
@@ -35,10 +35,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button_login" />
 
     <TextView
-        android:id="@+id/some_id3"
+        android:id="@+id/forget"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="37dp"
@@ -52,10 +52,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/register" />
 
     <TextView
-        android:id="@+id/some_id"
+        android:id="@+id/start_or_not"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginBottom="8dp"
@@ -64,25 +64,26 @@
         android:text="已經開始懂吃打吃了？"
         android:textColor="@color/black"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_login"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/border1"
+        android:background="@drawable/border_login"
         android:text="登入"
         android:textColor="#71C4B5"
         android:textSize="24sp"
+        android:onClick="login_click"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/some_id" />
+        app:layout_constraintTop_toBottomOf="@+id/start_or_not" />
 
     <ImageView
         android:id="@+id/imageView2"
