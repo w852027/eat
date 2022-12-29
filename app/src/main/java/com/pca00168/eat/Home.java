@@ -1,9 +1,11 @@
 package com.pca00168.eat;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+import android.widget.ImageView;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,5 +35,9 @@ public class Home extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_home);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        ImageView avatar = (ImageView) findViewById(R.id.avatar);
+        //avatar.setBackgroundColor(Color.rgb(0, 0, 0));
+
     }
 }
