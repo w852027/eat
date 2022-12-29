@@ -36,7 +36,7 @@ public class Home extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        ImageView avatar = (ImageView) findViewById(R.id.avatar);
+        //ImageView avatar = (ImageView) findViewById(R.id.avatar);
         //avatar.setBackgroundColor(Color.rgb(0, 0, 0));
 
     }
