@@ -1,19 +1,15 @@
 package com.pca00168.eat;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
-import android.widget.ImageView;
 
+import android.view.Window;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.pca00168.eat.databinding.HomeBinding;
-
 public class Home extends AppCompatActivity {
 
     private HomeBinding binding;
@@ -36,8 +32,6 @@ public class Home extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        //ImageView avatar = (ImageView) findViewById(R.id.avatar);
-        //avatar.setBackgroundColor(Color.rgb(0, 0, 0));
 
     }
 }
