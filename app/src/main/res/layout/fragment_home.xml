@@ -64,7 +64,6 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
 
-                android:hint="請輸入熱量(千卡)"
                 android:inputType="numberDecimal"
                 tools:ignore="TouchTargetSizeCheck" />
         </android.support.design.widget.TextInputLayout>
