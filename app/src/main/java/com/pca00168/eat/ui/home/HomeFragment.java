@@ -19,6 +19,7 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import com.pca00168.eat.R;
 import com.pca00168.eat.databinding.FragmentHomeBinding;
+import com.pca00168.eat.public_func;
 
 import java.util.ArrayList;
 
@@ -76,7 +77,7 @@ public class HomeFragment extends Fragment {
             if(sport_item[0].length()>5) {
                 text.setTextSize(24);
             }
-            ((ImageView)view.findViewById(R.id.sport_item_image)).setImageDrawable(getResources().getDrawable(getDrawableId(getContext(),sport_item[1]) ));
+            ((ImageView)view.findViewById(R.id.sport_item_image)).setImageDrawable(getResources().getDrawable(public_func.getDrawableId(getContext(),sport_item[1]) ));
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,11 +99,4 @@ public class HomeFragment extends Fragment {
         int weight=40;
 
     }*/
-    public static int getDrawableId(Context context, String var) {
-        try {
-           return context.getResources().getIdentifier(var, "drawable", context.getPackageName());
-        } catch (Exception e) {
-            return 0;
-        }
-    }
 }
