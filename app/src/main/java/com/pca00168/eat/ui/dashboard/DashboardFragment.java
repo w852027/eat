@@ -1,11 +1,10 @@
 package com.pca00168.eat.ui.dashboard;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.pca00168.eat.databinding.FragmentDashboardBinding;

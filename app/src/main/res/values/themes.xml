@@ -7,4 +7,13 @@
         <item name="colorAccent">@color/main_green</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.懂吃打吃.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.懂吃打吃.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.懂吃打吃.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

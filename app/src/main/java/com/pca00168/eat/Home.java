@@ -1,14 +1,19 @@
 package com.pca00168.eat;
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-
+import android.view.View;
 import android.view.Window;
+
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import com.pca00168.eat.databinding.HomeBinding;
 public class Home extends AppCompatActivity {
 
@@ -33,5 +38,11 @@ public class Home extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
+    }
+
+    public void settings_click(View view) {
+        Intent intent = new Intent();
+        intent.setClass(Home.this, Mine.class);
+        startActivity(intent);
     }
 }

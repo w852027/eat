@@ -2,6 +2,7 @@ package com.pca00168.eat.ui.notifications;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.arch.lifecycle.ViewModelProvider;
 
 import com.pca00168.eat.R;
