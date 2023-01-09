@@ -1,6 +1,7 @@
 package com.pca00168.eat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,7 +60,9 @@ public class Mine extends AppCompatActivity {
         table_list_arr.add(new ArrayList<>(Arrays.asList("語言", "icon_language", "繁體中文",null)));
         table_list_arr.add(new ArrayList<>(Arrays.asList("用戶設定", "icon_user_settings", "",(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent intent = new Intent();
+                intent.setClass(Mine.this, user_settings.class);
+                startActivity(intent);
             }
         }),null)));
 
