@@ -57,14 +57,17 @@ public class user_settings extends AppCompatActivity {
 
         table_list_arr.add(new ArrayList<>(Arrays.asList("用戶名稱",  "0kcal",(new View.OnClickListener() {
             public void onClick(View v) {
-
+                public_func.dialogResultCallBack callBack= new public_func.dialogResultCallBack() {
+                    public void OK(String text) {
+                            User.setUserName(text);
+                            //TODO: refresh page
+                    }
+                    public void Cancel() { }
+                };
+                public_func.TextInput_Dialog(user_settings.this,"請輸入新的用戶名稱",callBack);
             }
         }))));
-        table_list_arr.add(new ArrayList<>(Arrays.asList("用戶身份", "0kcal",(new View.OnClickListener() {
-            public void onClick(View v) {
-
-            }
-        }))));
+        table_list_arr.add(new ArrayList<>(Arrays.asList("用戶身份", "0kcal",null)));
         table_list_arr.add(new ArrayList<>(Arrays.asList("帳號", "PM/11:00-AM/07:00",(new View.OnClickListener() {
             public void onClick(View v) {
 

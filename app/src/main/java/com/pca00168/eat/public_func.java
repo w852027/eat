@@ -17,10 +17,10 @@ public class public_func {
         public void OK(String text);
         public void Cancel();
     }
-    public void TextInput_Dialog(Context context,String title,dialogResultCallBack Done) {
+    public static void TextInput_Dialog(Context context,String title,dialogResultCallBack Done) {
         TextInput_Dialog(context,title,"確定","取消",Done);
     }
-    public void TextInput_Dialog(Context context,String title,String okText,String cancelText,dialogResultCallBack Done) {
+    public static void TextInput_Dialog(Context context,String title,String okText,String cancelText,dialogResultCallBack Done) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final EditText editText = new EditText(context); //final一個editText
         builder.setView(editText);
