@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.pca00168.eat"
         minSdk 19
-        targetSdk 32
+        targetSdk 19
         versionCode 1
         versionName "1.0"
 
@@ -43,4 +43,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 }

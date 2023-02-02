@@ -1,5 +1,5 @@
 C:\Program Files\Android\Android Studio\jre\bin>keytool -list -v -keystore "C:\Users\User\.android\debug.keystore"
-輸入金鑰儲存庫密碼:
+輸入金鑰儲存庫密碼:  android
 金鑰儲存庫類型: PKCS12
 金鑰儲存庫提供者: SUN
 
@@ -29,3 +29,11 @@ C:\Program Files\Android\Android Studio\jre\bin>keytool -list -v -keystore "C:\U
 
 Warning:
 <androiddebugkey> uses the SHA1withRSA signature algorithm which is considered a security risk. This algorithm will be disabled in a future update.
+
+
+C:\Program Files\Android\Android Studio\jre\bin>keytool -exportcert -alias androiddebugkey -keystore "C:\Users\USEr\.android\debug.keystore"  |  A:\bin\openssl.exe sha1 -binary | A:\bin\openssl.exe base64
+輸入金鑰儲存庫密碼:  android
+
+Warning:
+憑證 uses the SHA1withRSA signature algorithm which is considered a security risk. This algorithm will be disabled in a future update.
+7Blsmk7XpQFYn4uHJnOHFdNzig4=
