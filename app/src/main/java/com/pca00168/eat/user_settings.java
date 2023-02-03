@@ -9,11 +9,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class user_settings extends AppCompatActivity {
     ImageView user_avatar;
+    TextView name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +48,16 @@ public class user_settings extends AppCompatActivity {
 
     private void load_data(){
         user_avatar=(ImageView) findViewById(R.id.user_avatar);
-        user_avatar.setImageResource(R.drawable.jungjung);
+        //user_avatar.setImageResource(R.drawable.jungjung);
+        Picasso.get().load(public_func.readData(this,"avatar")).into(user_avatar);
+        name=(TextView) findViewById(R.id.username);
+        name.setText(public_func.readData(this,"name"));
     }
 
     private void load_settings_list() {
         LinearLayout table_list = (LinearLayout) findViewById(R.id.table);
-
-
         ArrayList<ArrayList> table_list_arr = new ArrayList();//{名稱,圖片檔名,資訊(true false為開關),點擊事件,接下來要不要分隔線(不要的話填null，要的話什麼都不要填)}
-
+/*
         table_list_arr.add(new ArrayList<>(Arrays.asList("用戶名稱",  "0kcal",(new View.OnClickListener() {
             public void onClick(View v) {
                 public_func.dialogResultCallBack callBack= new public_func.dialogResultCallBack() {
@@ -67,17 +71,22 @@ public class user_settings extends AppCompatActivity {
             }
         }))));
         table_list_arr.add(new ArrayList<>(Arrays.asList("用戶身份", "0kcal",null)));
-        table_list_arr.add(new ArrayList<>(Arrays.asList("帳號", "PM/11:00-AM/07:00",(new View.OnClickListener() {
+        */
+        table_list_arr.add(new ArrayList<>(Arrays.asList("帳號", public_func.readData(this,"email"),(new View.OnClickListener() {
             public void onClick(View v) {
 
             }
         }))));
-        table_list_arr.add(new ArrayList<>(Arrays.asList("生日", "PM/11:00-AM/07:00",(new View.OnClickListener() {
+        table_list_arr.add(new ArrayList<>(Arrays.asList("生日", public_func.readData(this,"birthday"),(new View.OnClickListener() {
             public void onClick(View v) {
 
             }
         }))));
+        table_list_arr.add(new ArrayList<>(Arrays.asList("性別", public_func.readData(this,"sex"),(new View.OnClickListener() {
+            public void onClick(View v) {
 
+            }
+        }))));
         for (ArrayList table_item : table_list_arr) {
             LayoutInflater layoutInflater = LayoutInflater.from(user_settings.this);
             View view = layoutInflater.inflate(R.layout.user_settings_table_cell_info, null);

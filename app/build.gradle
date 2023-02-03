@@ -5,7 +5,9 @@ plugins {
 android {
     namespace 'com.pca00168.eat'
     compileSdk 33
-
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
     defaultConfig {
         applicationId "com.pca00168.eat"
         minSdk 19
@@ -45,5 +47,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'com.facebook.android:facebook-android-sdk:[13,14)'
     implementation 'com.google.android.gms:play-services-auth:11.6.0'
+    implementation 'com.google.api-client:google-api-client:1.31.0'
+    implementation 'com.google.api-client:google-api-client-android:1.31.0'
+    implementation 'com.google.apis:google-api-services-people:v1-rev20201117-1.31.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.squareup.picasso:picasso:2.8'
 }
