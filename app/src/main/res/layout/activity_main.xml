@@ -61,7 +61,7 @@
         android:text="已經開始懂吃打吃了？"
         android:textColor="@color/black"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/button_login"
+        app:layout_constraintBottom_toTopOf="@+id/fb_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -76,14 +76,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.facebook.login.widget.LoginButton
-        android:id="@+id/button_login"
+        android:id="@+id/fb_login"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_login"
+        android:text="登入"
+        android:textColor="#71C4B5"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/google_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/google_login"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/border_login"
-        android:text="登入"
+        android:onClick="google_click"
+        android:text="以Google帳號登入"
         android:textColor="#71C4B5"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/start"

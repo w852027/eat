@@ -4,6 +4,9 @@ buildscript {
         mavenCentral()
         google()
     }
+    dependencies {
+        classpath 'com.google.gms:google-services:3.1.0'
+    }
 }
 plugins {
     id 'com.android.application' version '7.3.1' apply false
