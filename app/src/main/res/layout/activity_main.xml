@@ -6,51 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/register"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="37dp"
-        android:background="@drawable/border_register"
-        android:text="註冊"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/forget"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center_horizontal|top"
-        android:lineSpacingExtra="-2sp"
-        android:text="馬上加入新生活！"
-        android:textColor="@color/black"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/forget"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginBottom="78dp"
-        android:gravity="center_horizontal|top"
-        android:lineSpacingExtra="-2sp"
-        android:text="忘記帳號密碼？"
-        android:textColor="#EC6D65"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/start_or_not"
         android:layout_width="wrap_content"
@@ -78,13 +33,11 @@
     <com.facebook.login.widget.LoginButton
         android:id="@+id/fb_login"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/border_login"
         android:text="登入"
-        android:textColor="#71C4B5"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/google_login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,16 +47,16 @@
     <Button
         android:id="@+id/google_login"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/border_login"
         android:onClick="google_click"
         android:text="以Google帳號登入"
         android:textColor="#71C4B5"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/start"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
