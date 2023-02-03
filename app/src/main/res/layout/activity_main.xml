@@ -83,7 +83,6 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/border_login"
-        android:onClick="login_click"
         android:text="登入"
         android:textColor="#71C4B5"
         android:textSize="24sp"
