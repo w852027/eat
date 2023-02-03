@@ -1,9 +1,8 @@
 package com.pca00168.eat.ui.home;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.Fragment;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import android.widget.ImageView;
-import android.support.annotation.NonNull;
-import android.arch.lifecycle.ViewModelProvider;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.pca00168.eat.R;
 import com.pca00168.eat.databinding.FragmentHomeBinding;

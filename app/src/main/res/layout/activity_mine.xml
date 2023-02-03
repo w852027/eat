@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context=".Mine">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="60sp"
@@ -30,9 +30,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
         android:layout_width="0dp"
         android:layout_height="146sp"
@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout5"
             android:layout_width="0dp"
             android:layout_height="32sp"
@@ -96,9 +96,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/kcal3"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout6"
             android:layout_width="0dp"
             android:layout_height="32sp"
@@ -148,7 +148,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/day"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/username"
@@ -164,7 +164,7 @@
             app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout7"
             style="@style/user_avatar_border"
             android:layout_width="100sp"
@@ -190,9 +190,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 app:riv_corner_radius="50sp" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="0dp"
@@ -213,4 +213,4 @@
             android:orientation="vertical" />
     </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
