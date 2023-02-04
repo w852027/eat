@@ -7,6 +7,13 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.widget.EditText;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Dictionary;
+import java.util.Set;
+
 public class public_func {
     public static int getDrawableId(Context context, String var) {
         try {  return context.getResources().getIdentifier(var, "drawable", context.getPackageName());  } catch (Exception e) {  return 0;  }
@@ -31,6 +38,23 @@ public class public_func {
         /**若不需要提交結果，則可使用.apply()*/
         return editor.commit();
     }
+    public static String date2string(Date date){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return df.format(c.getTime());
+    }
+    public static String date2string(Calendar date){
+        return (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(date);
+    }
+    /*
+    public static boolean writeData(Context context, String key, Set<Dictionary> value){
+        SharedPreferences sharedPreferences= context.getSharedPreferences("Data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet(key,value);
+
+        return editor.commit();
+    }*/
     interface dialogResultCallBack {
         public void OK(String text);
         public void Cancel();

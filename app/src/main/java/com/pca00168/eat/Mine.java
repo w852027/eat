@@ -32,9 +32,9 @@ public class Mine extends AppCompatActivity {
 
     private void load_data(){
         user_avatar=(ImageView) findViewById(R.id.user_avatar);
-        Picasso.get().load(public_func.readData(this,"avatar")).into(user_avatar);
+        Picasso.get().load(User.getUserAvatar(this)).into(user_avatar);
         name=(TextView) findViewById(R.id.username);
-        name.setText(public_func.readData(this,"name"));
+        name.setText(User.getUserName(this));
      }
 
     private void load_settings_list() {

@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 
 import androidx.navigation.NavController;
@@ -39,7 +40,6 @@ public class Home extends AppCompatActivity {
 
 
     }
-
     public void settings_click(View view) {
         Intent intent = new Intent();
         intent.setClass(Home.this, Mine.class);

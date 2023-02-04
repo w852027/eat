@@ -10,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pca00168.eat.R;
+import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentNotificationsBinding;
 
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class NotificationsFragment extends Fragment {
     private View root;
     private TextInputEditText input_kcal;
     private TextInputEditText input_food_name;
-    private  int food_type=0;
+    private  short food_type=0;
     private Button confirm_add_btn;
     private ArrayList<ImageView> input_food;
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
@@ -32,6 +35,13 @@ public class NotificationsFragment extends Fragment {
         confirm_add_btn = (Button)root.findViewById(R.id.confirm_add_btn);
         input_kcal = (TextInputEditText)root.findViewById(R.id.input_kcal);
         input_food_name = (TextInputEditText)root.findViewById(R.id.input_food_name);
+        confirm_add_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                check_field_empty();
+                if(confirm_add_btn.isClickable())
+                    User.add_kcal_input(getContext(), food_type, Integer.parseInt(input_kcal.getText().toString()));
+            }
+        });
         input_kcal.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {  check_field_empty();}
@@ -55,11 +65,10 @@ public class NotificationsFragment extends Fragment {
                     for (ImageView view:input_food)
                             view.setBackground(getResources().getDrawable(R.drawable.input_food));
                     v.setBackground(getResources().getDrawable(R.drawable.input_food_clicked));
-                    food_type=input_food.indexOf(v)+1;
+                    food_type=(short)(input_food.indexOf(v)+1);
                     check_field_empty();
                 }
             });
-
 
         return root;
     }
