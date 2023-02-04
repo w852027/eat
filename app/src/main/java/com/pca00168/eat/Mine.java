@@ -11,11 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Mine extends AppCompatActivity {
     ImageView user_avatar;
+    TextView name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,16 +32,13 @@ public class Mine extends AppCompatActivity {
 
     private void load_data(){
         user_avatar=(ImageView) findViewById(R.id.user_avatar);
-        user_avatar.setImageResource(R.drawable.jungjung);
-
-
-
-
+        Picasso.get().load(public_func.readData(this,"avatar")).into(user_avatar);
+        name=(TextView) findViewById(R.id.username);
+        name.setText(public_func.readData(this,"name"));
      }
 
     private void load_settings_list() {
         LinearLayout table_list = (LinearLayout) findViewById(R.id.table);
-
 
         ArrayList<ArrayList> table_list_arr = new ArrayList();//{名稱,圖片檔名,資訊(true false為開關),點擊事件,接下來要不要分隔線(不要的話填null，要的話什麼都不要填)}
         table_list_arr.add(new ArrayList<>(Arrays.asList("基本設定", null, "section",null)));
@@ -49,10 +49,13 @@ public class Mine extends AppCompatActivity {
         }))));
         table_list_arr.add(new ArrayList<>(Arrays.asList("背景音樂", "icon_background_music", "true",(new View.OnClickListener() {
             public void onClick(View v) {
+
+
             }
         }))));
         table_list_arr.add(new ArrayList<>(Arrays.asList("通知", "icon_notification", "true",(new View.OnClickListener() {
             public void onClick(View v) {
+
 
             }
         }))));
@@ -74,6 +77,7 @@ public class Mine extends AppCompatActivity {
         }))));
         table_list_arr.add(new ArrayList<>(Arrays.asList("每日運動目標", "icon_dumbbell", "0kcal",(new View.OnClickListener() {
             public void onClick(View v) {
+
 
             }
         }))));

@@ -38,8 +38,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.black);
-        fb_login();
         google_login();
+        fb_login();
     }
     private static final String CONTACTS_SCOPE = "https://www.googleapis.com/auth/user.gender.read";
     private static final String CONTACTS_SCOPE2 = "https://www.googleapis.com/auth/user.birthday.read";
@@ -99,6 +99,7 @@ public class MainActivity extends Activity {
                                String.format ("%d/%d/%d",day.getDate().getYear(),day.getDate().getMonth(),day.getDate().getDay())
                         );
                     }
+                    public_func.writeData(getBaseContext(),"logged","google");
                     logged_in();
                 } catch (IOException e) {
                             err("生日及性別取得失敗");
@@ -130,7 +131,7 @@ public class MainActivity extends Activity {
     }
 
     private void  google_login(){
-        if(public_func.readData(this,"logged")=="google"){
+        if(public_func.readData(this,"logged")!=""){
             logged_in();
             return;
         }
@@ -146,7 +147,6 @@ public class MainActivity extends Activity {
     }
 
     private void logged_in(){
-        public_func.writeData(getBaseContext(),"logged","google");
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, Home.class);
         startActivity(intent);
