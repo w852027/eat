@@ -241,6 +241,30 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/shop_btn"
+        android:layout_width="48sp"
+        android:layout_height="48sp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/shop"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/settings_btn"
+        android:layout_width="48sp"
+        android:layout_height="48sp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/settings"
+        android:stateListAnimator="@null"
+        android:onClick="settings_click"
+        app:layout_constraintBottom_toTopOf="@+id/shop_btn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/kcal_toast_view"
         android:layout_width="0dp"
@@ -314,27 +338,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <Button
-        android:id="@+id/shop_btn"
-        android:layout_width="48sp"
-        android:layout_height="48sp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/shop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <Button
-        android:id="@+id/settings_btn"
-        android:layout_width="48sp"
-        android:layout_height="48sp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/settings"
-        android:onClick="settings_click"
-        app:layout_constraintBottom_toTopOf="@+id/shop_btn"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
