@@ -1,10 +1,16 @@
 package com.pca00168.eat;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +25,7 @@ public class User {
     public static String getUserName(Context context){
         return public_func.readData(context,"name");
     }
-    public static void add_kcal_input(Context context,short type,int kcal){
+    public static void add_kcal_input(Context context, short type, int kcal){
         SqlDataBaseHelper db=new SqlDataBaseHelper(context);
         SQLiteDatabase s = db.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -27,7 +33,7 @@ public class User {
         values.put("foodtype", type);
         values.put("kcal", kcal);
         s.insert("input_kcal", null, values);
-        load_kcal_input(context);
+        public_func.writeData(context,"delta_kcal", String.valueOf(kcal));
     }
 
     public static void load_kcal_input(Context context){

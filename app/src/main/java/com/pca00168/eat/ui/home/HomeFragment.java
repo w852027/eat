@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pca00168.eat.R;
+import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentHomeBinding;
 import com.pca00168.eat.public_func;
 
@@ -29,6 +30,21 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =  new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
         root = FragmentHomeBinding.inflate(inflater, container, false).getRoot();
         Button confirm_add_btn = (Button)root.findViewById(R.id.confirm_add_btn);
+
+
+        confirm_add_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //check_field_empty();
+                if(confirm_add_btn.isClickable()){
+                    //User.add_kcal_output(getActivity(), sport_type, Integer.parseInt(input_kcal.getText().toString()));
+                    getActivity().onBackPressed();
+                }
+
+            }
+        });
+
+
+
         input_kcal = (TextInputEditText)root.findViewById(R.id.input_kcal);
         input_kcal.addTextChangedListener(new TextWatcher() {
             @Override
@@ -41,6 +57,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {  }
         });
+
+
+
 
         load_sport_list();
         return root;
