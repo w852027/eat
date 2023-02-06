@@ -1,21 +1,9 @@
 package com.pca00168.eat;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import java.util.ArrayList;
-import java.util.List;
-
-
 public class User {
     //public static void setUserName(String username){    }
     //public static void setUserAvatar(String username){    }
@@ -25,18 +13,20 @@ public class User {
     public static String getUserName(Context context){
         return public_func.readData(context,"name");
     }
-    public static void add_kcal_input(Context context, short type, int kcal){
+    public static void add_kcal_input(Context context, kcal_food food){
         SqlDataBaseHelper db=new SqlDataBaseHelper(context);
         SQLiteDatabase s = db.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("time", public_func.date2string(java.util.Calendar.getInstance().getTime()) );
-        values.put("foodtype", type);
-        values.put("kcal", kcal);
+        values.put("time",public_func.date2string( food.time ));
+        values.put("foodtype", food.type);
+        values.put("foodname",food.name);
+        values.put("kcal", food.kcal);
         s.insert("input_kcal", null, values);
-        public_func.writeData(context,"delta_kcal", String.valueOf(kcal));
+        s.close();
+        public_func.writeData(context,"delta_kcal", String.valueOf(food.kcal));
     }
 
-    public static void load_kcal_input(Context context){
+    public static ArrayList<kcal_food> load_kcal_input(Context context){
         SqlDataBaseHelper db=new SqlDataBaseHelper(context);
         SQLiteDatabase s = db.getReadableDatabase();
         Cursor cursor = s.query(
@@ -48,14 +38,16 @@ public class User {
                 null,                   // don't filter by row groups
                 null               // The sort order
         );
-        List itemIds = new ArrayList<>();
+        ArrayList<kcal_food> items = new ArrayList<>();
         while(cursor.moveToNext()) {
-            long itemId = cursor.getLong(
-                    cursor.getColumnIndexOrThrow("foodtype")
-            );
-            Log.v("666", "a"+String.valueOf(itemId));
-            itemIds.add(itemId);
+            kcal_food item=new kcal_food();
+            item.time=public_func.string2date(cursor.getString(cursor.getColumnIndexOrThrow("time")));
+            item.type = cursor.getShort(cursor.getColumnIndexOrThrow("foodtype"));
+            item.name = cursor.getString(cursor.getColumnIndexOrThrow("foodname"));
+            item.kcal = cursor.getInt(cursor.getColumnIndexOrThrow("kcal"));
+            items.add(item);
         }
         cursor.close();
+        return items;
     }
 }

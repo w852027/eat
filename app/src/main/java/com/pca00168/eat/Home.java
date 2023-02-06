@@ -38,4 +38,9 @@ public class Home extends AppCompatActivity {
         intent.setClass(Home.this, Mine.class);
         startActivity(intent);
     }
+    public void weekly_report_click(View view) {
+        Intent intent = new Intent();
+        intent.setClass(Home.this, weekly_report.class);
+        startActivity(intent);
+    }
 }

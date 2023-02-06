@@ -33,8 +33,8 @@ public class public_func {
         c.setTime(date);
         return df.format(c.getTime());
     }
-    public static String date2string(Calendar date){
-        return (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(date);
+    public static Date string2date(String date){
+        return java.util.Calendar.getInstance().getTime();
     }
     interface dialogResultCallBack {
         public void OK(String text);
