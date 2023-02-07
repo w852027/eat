@@ -46,14 +46,24 @@ public class DashboardFragment extends Fragment {
                 ).total_kcal())
         );
 
+        TextView dumbbel_value=getActivity().findViewById(R.id.dumbbel_value);
+        dumbbel_value.setText(String.valueOf(
+                User.load_kcal_output(
+                        getActivity(),
+                        -1,
+                        public_func.timestamp_today(),
+                        public_func.timestamp_now()
+                ).total_kcal())
+        );
+
         ConstraintLayout layout=getActivity().findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
         String delta_kcal=public_func.readData(getActivity(),"delta_kcal");
         if(delta_kcal!=""){
             TextView kcal=getActivity().findViewById(R.id.kcal_toast_delta);
-            kcal.setText(delta_kcal);
+            kcal.setText(Integer.parseInt(delta_kcal) <0?delta_kcal.substring(1):delta_kcal);
             TextView add_minus=getActivity().findViewById(R.id.kcal_toast_text);
-            add_minus.setText(Integer.valueOf(delta_kcal) <0?"消耗":"增加");
+            add_minus.setText(Integer.parseInt(delta_kcal) <0?"消耗":"增加");
             ImageView icon=getActivity().findViewById(R.id.kcal_toast_icon);
             icon.setImageDrawable(getResources().getDrawable( Integer.valueOf(delta_kcal) <0? R.drawable.dumbbel:R.drawable.apple));
             public_func.writeData(getActivity(),"delta_kcal","");

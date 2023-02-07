@@ -15,7 +15,6 @@ import com.pca00168.eat.R;
 import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentNotificationsBinding;
 import com.pca00168.eat.kcal_food;
-import com.pca00168.eat.public_func;
 
 import java.util.ArrayList;
 public class NotificationsFragment extends Fragment {

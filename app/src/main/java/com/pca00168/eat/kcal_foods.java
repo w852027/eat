@@ -6,5 +6,4 @@ public class kcal_foods extends ArrayList<kcal_food> {
         for(kcal_food food:this) total+=food.kcal;
         return total;
     }
-
 }
