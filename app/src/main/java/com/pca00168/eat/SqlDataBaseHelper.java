@@ -11,7 +11,7 @@ public class SqlDataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL( "CREATE TABLE IF NOT EXISTS input_kcal (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "time TEXT not null," +
+                "time INTEGER not null," +
                 "foodname TEXT not null," +
                 "foodtype INTEGER not null," +
                 "kcal INTEGER not null" +
@@ -19,7 +19,7 @@ public class SqlDataBaseHelper extends SQLiteOpenHelper {
         );
         db.execSQL( "CREATE TABLE IF NOT EXISTS output_kcal (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "time DATETIME not null," +
+                "time INTEGER not null," +
                 "sporttype INTEGER not null," +
                 "kcal INTEGER not null" +
                 ")"

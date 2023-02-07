@@ -41,8 +41,7 @@ public class NotificationsFragment extends Fragment {
                 check_field_empty();
                 if(confirm_add_btn.isClickable()){
                     kcal_food item=new kcal_food();
-                    item.time=java.util.Calendar.getInstance().getTime();
-                    item.type = food_type;
+                    item.type = (short)(food_type-1);
                     item.name = input_food_name.getText().toString();
                     item.kcal = Integer.parseInt(input_kcal.getText().toString());
                     User.add_kcal_input(getActivity(),item);
