@@ -25,13 +25,16 @@ public class User {
         s.close();
         public_func.writeData(context,"delta_kcal", String.valueOf(food.kcal));
     }
-    public static kcal_foods load_kcal_input(Context context,int food_type,long from_timestamp,long to_timestamp){
+    public static kcal_foods load_kcal_input(Context context,int food_type,long from_timestamp,long to_timestamp){//-1:全部
         SqlDataBaseHelper db=new SqlDataBaseHelper(context);
         SQLiteDatabase s = db.getReadableDatabase();
         Cursor cursor = s.query(
                 "input_kcal",   // The table to query
                 null,             // The array of columns to return (pass null to get all)
-                String.format("foodtype=%d AND time >= %d AND time < %d", food_type,from_timestamp,to_timestamp),  // The columns for the WHERE clause
+                String.format("%s time >= %d AND time <= %d",
+                        food_type == -1 ? "" : String.format( "foodtype=%d AND",food_type),
+                        from_timestamp,
+                        to_timestamp),  // The columns for the WHERE clause
                  null,        // The values for the WHERE clause
                 null,                   // don't group the rows
                 null,                   // don't filter by row groups
@@ -49,29 +52,5 @@ public class User {
         cursor.close();
         return items;
 
-    }
-    public static kcal_foods load_kcal_input(Context context){
-        SqlDataBaseHelper db=new SqlDataBaseHelper(context);
-        SQLiteDatabase s = db.getReadableDatabase();
-        Cursor cursor = s.query(
-                "input_kcal",   // The table to query
-                null,             // The array of columns to return (pass null to get all)
-                null,              // The columns for the WHERE clause
-                null,          // The values for the WHERE clause
-                null,                   // don't group the rows
-                null,                   // don't filter by row groups
-                null               // The sort order
-        );
-        kcal_foods items = new kcal_foods();
-        while(cursor.moveToNext()) {
-            kcal_food item=new kcal_food();
-            item.time=cursor.getInt(cursor.getColumnIndexOrThrow("time"));
-            item.type = cursor.getShort(cursor.getColumnIndexOrThrow("foodtype"));
-            item.name = cursor.getString(cursor.getColumnIndexOrThrow("foodname"));
-            item.kcal = cursor.getInt(cursor.getColumnIndexOrThrow("kcal"));
-            items.add(item);
-        }
-        cursor.close();
-        return items;
     }
 }

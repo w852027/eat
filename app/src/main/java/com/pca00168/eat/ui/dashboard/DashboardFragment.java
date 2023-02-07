@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pca00168.eat.R;
+import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentDashboardBinding;
 import com.pca00168.eat.public_func;
 
@@ -35,6 +36,16 @@ public class DashboardFragment extends Fragment {
         load_data();
     }
     private void load_data(){
+        TextView to_eat_value=getActivity().findViewById(R.id.to_eat_value);
+        to_eat_value.setText(String.valueOf(
+                User.load_kcal_input(
+                        getActivity(),
+                        -1,
+                        public_func.timestamp_today(),
+                        public_func.timestamp_now()
+                ).total_kcal())
+        );
+
         ConstraintLayout layout=getActivity().findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
         String delta_kcal=public_func.readData(getActivity(),"delta_kcal");

@@ -36,9 +36,7 @@ public class public_func {
     public static Date string2date(String date){
         return java.util.Calendar.getInstance().getTime();
     }
-    public static long timestamp_now(){
-        return (new Date()).getTime()/1000;
-    }
+
     //true:month false:day
     public static String timestamp_get(long timestamp,boolean month){
         SimpleDateFormat df = new SimpleDateFormat( month?"MM":"dd");
@@ -46,12 +44,17 @@ public class public_func {
         date.setTime(timestamp*1000);
         return df.format(date);
     }
-    public static long timestamp_a_week_ago(){
-        long now= (new Date()).getTime()/1000;
-        now-=604800;
+    public static long timestamp_now(){
+        return (new Date()).getTime()/1000;
+    }
+    public static long timestamp_today(){
+        long now= timestamp_now();
         now/=86400;
         now*=86400;
         return now;
+    }
+    public static long timestamp_a_week_ago(){
+        return timestamp_today()-604800;
     }
     interface dialogResultCallBack {
         public void OK(String text);
