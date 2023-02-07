@@ -267,6 +267,18 @@
         app:layout_constraintBottom_toTopOf="@+id/shop_btn"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/weekly_report"
+        android:layout_width="48sp"
+        android:layout_height="48sp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/weekly_report"
+        android:onClick="weekly_report_click"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toTopOf="@+id/settings_btn"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/kcal_toast_view"
         android:layout_width="0dp"
