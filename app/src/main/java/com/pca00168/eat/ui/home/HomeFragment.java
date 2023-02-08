@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
             if(sport_item.name.length()>5) {
                 text.setTextSize(24);
             }
-            ((ImageView)view.findViewById(R.id.sport_item_image)).setImageDrawable(getResources().getDrawable(public_func.getDrawableId(getContext(),sport_item.icon_name) ));
+            ((ImageView)view.findViewById(R.id.sport_item_image)).setImageDrawable(getResources().getDrawable(sport_item.icon_resource_id));
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

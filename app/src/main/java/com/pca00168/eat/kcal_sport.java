@@ -2,17 +2,17 @@ package com.pca00168.eat;
 public class kcal_sport {
     public short type=0;
     public long time=public_func.timestamp_now();
-    public int kcal=0;
-    public String name="", icon_name="";
+    public int kcal=0,icon_resource_id=0;
+    public String name="";
     kcal_sport(){
         super();
     }
-    kcal_sport(short type,int kcal,String name,String icon_name){
+    kcal_sport(short type,int kcal,String name,int icon_resource_id){
         super();
         this.type=type;
         this.kcal=kcal;
         this.name=name;
-        this.icon_name=icon_name;
+        this.icon_resource_id=icon_resource_id;
         this.time=0;
     }
     /*
