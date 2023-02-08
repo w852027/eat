@@ -79,9 +79,8 @@ public class User {
         );
         kcal_sports items = new kcal_sports();
         while(cursor.moveToNext()) {
-            kcal_sport item=new kcal_sport();
+            kcal_sport item= kcal_sports.sport_list().get(cursor.getShort(cursor.getColumnIndexOrThrow("sporttype")));
             item.time=cursor.getInt(cursor.getColumnIndexOrThrow("time"));
-            item.type = cursor.getShort(cursor.getColumnIndexOrThrow("sporttype"));
             item.kcal = cursor.getInt(cursor.getColumnIndexOrThrow("kcal"));
             items.add(item);
         }

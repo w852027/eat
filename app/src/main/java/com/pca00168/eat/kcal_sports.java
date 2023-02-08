@@ -6,7 +6,7 @@ public class kcal_sports extends ArrayList<kcal_sport> {
         for(kcal_sport sport:this) total+=sport.kcal;
         return total;
     }
-    public static kcal_sports sport_list_arr(){
+    public static kcal_sports sport_list(){
         kcal_sports arr=new kcal_sports();
         arr.add(new kcal_sport((short) 0,1,"健行", R.drawable.sport_item_hike));
         arr.add(new kcal_sport((short) 1,1,"划船機", R.drawable.sport_item_boat));

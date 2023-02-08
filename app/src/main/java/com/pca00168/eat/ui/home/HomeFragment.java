@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
 
     private  void load_sport_list(){
         LinearLayout sport_list = (LinearLayout) root.findViewById(R.id.sport_list);
-        for (kcal_sport sport_item: kcal_sports.sport_list_arr()) {
+        for (kcal_sport sport_item: kcal_sports.sport_list()) {
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             View view = layoutInflater.inflate(R.layout.sport_item, null);
             TextView text = (TextView)view.findViewById(R.id.sport_item_text);

@@ -1,4 +1,6 @@
 package com.pca00168.eat.ui.dashboard;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,10 +15,12 @@ import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.pca00168.eat.Home;
 import com.pca00168.eat.R;
 import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentDashboardBinding;
 import com.pca00168.eat.public_func;
+import com.pca00168.eat.today_detial;
 
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
@@ -67,6 +71,17 @@ public class DashboardFragment extends Fragment {
             ImageView icon=getActivity().findViewById(R.id.kcal_toast_icon);
             icon.setImageDrawable(getResources().getDrawable( Integer.valueOf(delta_kcal) <0? R.drawable.dumbbel:R.drawable.apple));
             public_func.writeData(getActivity(),"delta_kcal","");
+
+            TextView look=getActivity().findViewById(R.id.look);
+            look.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), today_detial.class);
+                    intent.putExtra("request_input",Integer.parseInt(delta_kcal) >0);
+                    startActivity(intent);
+                }
+            });
+
             layout.setVisibility(View.VISIBLE);
             layout.animate().alpha(1).setDuration(2000).withEndAction(new Runnable() {
                 @Override
