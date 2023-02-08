@@ -33,40 +33,22 @@ public class weekly_report extends AppCompatActivity {
     }
     private void load_data(){
         LinearLayout input_kcal_table = findViewById(R.id.input_kcal_table);
-        for (int type=0;type<=3;type++) {
+        for (short type=0;type<=3;type++) {
             kcal_foods foods=User.load_kcal_input(this,type,public_func.timestamp_a_week_ago(),public_func.timestamp_now());
             LayoutInflater layoutInflater = LayoutInflater.from(this);
-            View view = layoutInflater.inflate(R.layout.weekly_report_table_cell, null);
-            TextView type_name=view.findViewById(R.id.type);
-            ImageView icon= view.findViewById(R.id.type_icon);
-            switch (type){
-                case 0:
-                    type_name.setText("正餐");
-                    icon.setImageDrawable(getResources().getDrawable(R.drawable.icon_meal));
-                    break;
-                case 1:
-                    type_name.setText("點心");
-                    icon.setImageDrawable(getResources().getDrawable(R.drawable.icon_dessert));
-                    break;
-                case 2:
-                    type_name.setText("飲品");
-                    icon.setImageDrawable(getResources().getDrawable(R.drawable.icon_drink));
-                    break;
-                case 3:
-                    type_name.setText("其他");
-                    icon.setImageDrawable(getResources().getDrawable(R.drawable.icon_other));
-                    break;
-            }
-            ((TextView)view.findViewById(R.id.count_value)).setText(String.valueOf(foods.size()));
-            ((TextView)view.findViewById(R.id.kcal_value)).setText(String.valueOf(foods.total_kcal()));
-            view.setOnClickListener(new View.OnClickListener() {
+            View cell = layoutInflater.inflate(R.layout.weekly_report_table_cell, null);
+            ((TextView)cell.findViewById(R.id.type)).setText(kcal_foods.foodtype2string(type));
+            ((ImageView)cell.findViewById(R.id.type_icon)).setImageDrawable(getResources().getDrawable(kcal_foods.foodtype2icon_resource_id(type)));
+            ((TextView)cell.findViewById(R.id.count_value)).setText(String.valueOf(foods.size()));
+            ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(foods.total_kcal()));
+            cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
 
                 }
             });
-            input_kcal_table.addView(view);
+            input_kcal_table.addView(cell);
         }
 
     }
