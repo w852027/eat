@@ -44,12 +44,12 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
     public void input_today_detial_click(View view) {
-        Intent intent = new Intent(Home.this, today_detial.class);
+        Intent intent = new Intent(Home.this, today_detail.class);
         intent.putExtra("request_input",true);
         startActivity(intent);
     }
     public void output_today_detial_click(View view) {
-        Intent intent = new Intent(Home.this, today_detial.class);
+        Intent intent = new Intent(Home.this, today_detail.class);
         intent.putExtra("request_input",false);
         startActivity(intent);
     }

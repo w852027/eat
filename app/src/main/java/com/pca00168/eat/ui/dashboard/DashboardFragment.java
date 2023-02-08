@@ -1,26 +1,23 @@
 package com.pca00168.eat.ui.dashboard;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.lifecycle.ViewModelProvider;
-
-import com.pca00168.eat.Home;
 import com.pca00168.eat.R;
 import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentDashboardBinding;
 import com.pca00168.eat.public_func;
-import com.pca00168.eat.today_detial;
+import com.pca00168.eat.today_detail;
+
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
@@ -76,7 +73,7 @@ public class DashboardFragment extends Fragment {
             look.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), today_detial.class);
+                    Intent intent = new Intent(getActivity(), today_detail.class);
                     intent.putExtra("request_input",Integer.parseInt(delta_kcal) >0);
                     startActivity(intent);
                 }

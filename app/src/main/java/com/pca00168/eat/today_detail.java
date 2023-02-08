@@ -1,21 +1,17 @@
 package com.pca00168.eat;
+import android.animation.LayoutTransition;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.transition.Fade;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
-
-public class today_detial extends Activity {
+public class today_detail extends Activity {
     private boolean is_request_input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,33 +31,31 @@ public class today_detial extends Activity {
             ((ImageView)cell.findViewById(R.id.type_icon)).setImageDrawable(getResources().getDrawable(kcal_foods.foodtype2icon_resource_id(food.type)));
             ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(food.kcal));
             ((TextView)cell.findViewById(R.id.name)).setText(food.name);
-            ImageView edit_btn=cell.findViewById(R.id.edit_btn);
+            ImageButton edit_btn=cell.findViewById(R.id.edit_btn);
+            ConstraintLayout kcal_layout=cell.findViewById(R.id.kcal_layout);
             edit_btn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-
+                    
                 }
             });
-            ConstraintLayout kcal_layout=cell.findViewById(R.id.kcal_layout);
-
-
             cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-/*
-                    TranslateAnimation animate = new TranslateAnimation(0,-edit_btn.getWidth(),0,0);
-                    animate.setDuration(500);
-                    animate.setFillAfter(true);
-                    kcal_layout.startAnimation(animate);*/
-                    edit_btn.setVisibility(View.VISIBLE);
-
-                    /*
-                    edit_btn.animate().translationX(-100).setDuration(1000).withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });*/
+                    boolean editmode;
+                    try{
+                        editmode=(boolean)kcal_layout.getTag();
+                    }catch (NullPointerException e){
+                        editmode=false;
+                    }
+                    editmode=!editmode;
+                    if(editmode){
+                        TranslateAnimation animate = new TranslateAnimation(edit_btn.getWidth(),0,0,0);
+                        animate.setDuration(300);
+                        kcal_layout.startAnimation(animate);
+                    }
+                    kcal_layout.setTranslationX(editmode?0:edit_btn.getWidth());
+                    kcal_layout.setTag(editmode);
                 }
             });
                 io_kcal_today_table.addView(cell);
