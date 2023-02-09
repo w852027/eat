@@ -53,49 +53,57 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit">
 
-            <ImageView
-                android:id="@+id/pencil"
-                android:layout_width="24sp"
-                android:layout_height="24sp"
-                android:src="@drawable/edit_green"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/food_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/name"
-                android:layout_width="180dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="12dp"
-                android:background="@drawable/edit_kcal"
-                android:gravity="center_vertical"
-                android:hint="請輸入新的食物名稱"
-                android:paddingStart="8sp"
-                android:paddingEnd="8sp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/pencil"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/pencil"
+                    android:layout_width="24sp"
+                    android:layout_height="24sp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/edit_green"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    android:layout_width="180dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/edit_kcal"
+                    android:gravity="center_vertical"
+                    android:hint="請輸入新的食物名稱"
+                    android:paddingStart="8sp"
+                    android:paddingEnd="8sp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/pencil"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/apple"
                 android:layout_width="24sp"
                 android:layout_height="24sp"
-                android:layout_marginTop="20dp"
                 android:src="@drawable/apple"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pencil" />
+                app:layout_constraintTop_toBottomOf="@+id/food_name" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/kcal_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/edit_kcal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/apple"
-                app:layout_constraintTop_toBottomOf="@+id/name">
+                app:layout_constraintTop_toBottomOf="@+id/food_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/kcal_value"
@@ -131,10 +139,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <HorizontalScrollView
+            android:id="@+id/scrollView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="100dp"
+            android:scrollbars="none"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -144,6 +154,7 @@
                 android:id="@+id/type_table"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="clip_horizontal"
                 android:orientation="horizontal"></LinearLayout>
         </HorizontalScrollView>
 
