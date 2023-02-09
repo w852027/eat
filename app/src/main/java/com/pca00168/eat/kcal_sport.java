@@ -1,5 +1,6 @@
 package com.pca00168.eat;
-public class kcal_sport {
+import java.io.Serializable;
+public class kcal_sport implements Serializable {
     public short type=0;
     public long time=public_func.timestamp_now();
     public int kcal=0,icon_resource_id=0;

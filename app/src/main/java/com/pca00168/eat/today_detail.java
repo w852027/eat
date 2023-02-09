@@ -1,11 +1,11 @@
 package com.pca00168.eat;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,7 +47,11 @@ public class today_detail extends Activity {
             cell.findViewById(R.id.edit_btn).setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-
+                    change_edit_mode(cell);
+                    Intent intent = new Intent(cell.getContext(), edit_today_detail.class);
+                    intent.putExtra("request_input",true);
+                    intent.putExtra("data",food);
+                    startActivity(intent);
                 }
             });
             cell.setOnClickListener(new View.OnClickListener() {
