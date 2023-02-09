@@ -104,6 +104,7 @@ public class edit_today_detail extends Activity {
         objectAnimator.start();
     }
     public void delete_click(View view){
-
+        User.delete_kcal_data(this, is_request_input, is_request_input ? food.time : sport.time);
+        finish();
     }
 }

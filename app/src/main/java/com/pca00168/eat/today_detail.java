@@ -1,4 +1,5 @@
 package com.pca00168.eat;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,17 +16,23 @@ import java.util.ArrayList;
 public class today_detail extends Activity {
     private boolean is_request_input;
     private ArrayList<View> cells=new ArrayList<>();
-    
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            if(is_request_input) load_input_data();
+            else load_output_data();
+        }
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.today_detial);
         is_request_input=getIntent().getBooleanExtra("request_input",true);
-        if(is_request_input) load_input_data();
-        else load_output_data();
     }
     private void load_input_data(){
         LinearLayout io_kcal_today_table = findViewById(R.id.io_kcal_today_table);
+        io_kcal_today_table.removeAllViews();
+        cells.clear();
         for(kcal_food food :User.load_kcal_input(this,-1,public_func.timestamp_today(),public_func.timestamp_now())){
             View cell = LayoutInflater.from(this).inflate(R.layout.today_detial_table_cell, null);
             cell.setTag(false);
@@ -34,7 +41,6 @@ public class today_detail extends Activity {
             ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(food.kcal));
             ((TextView)cell.findViewById(R.id.name)).setText(food.name);
             cell.findViewById(R.id.edit_btn).setOnClickListener(new View.OnClickListener(){
-                
                 public void onClick(View v) {
                     edit_onClick(cell,food);
                 }
@@ -51,6 +57,8 @@ public class today_detail extends Activity {
     }
     private void load_output_data(){
         LinearLayout io_kcal_today_table = findViewById(R.id.io_kcal_today_table);
+        io_kcal_today_table.removeAllViews();
+        cells.clear();
         for(kcal_sport sport :User.load_kcal_output(this,-1,public_func.timestamp_today(),public_func.timestamp_now())){
             View cell = LayoutInflater.from(this).inflate(R.layout.today_detial_table_cell, null);
             cell.setTag(false);

@@ -1,5 +1,4 @@
 package com.pca00168.eat.ui.dashboard;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,18 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.pca00168.eat.R;
 import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentDashboardBinding;
 import com.pca00168.eat.public_func;
 import com.pca00168.eat.today_detail;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,14 +22,13 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-    
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-    
-    public void onStart() {
-        super.onStart();
+    @Override
+    public void onResume() {
+        super.onResume();
         load_data();
     }
     private void load_data(){
@@ -46,7 +41,6 @@ public class DashboardFragment extends Fragment {
                         public_func.timestamp_now()
                 ).total_kcal())
         );
-
         TextView dumbbel_value=getActivity().findViewById(R.id.dumbbel_value);
         dumbbel_value.setText(String.valueOf(
                 User.load_kcal_output(
@@ -56,7 +50,6 @@ public class DashboardFragment extends Fragment {
                         public_func.timestamp_now()
                 ).total_kcal())
         );
-
         ConstraintLayout layout=getActivity().findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
         String delta_kcal=public_func.readData(getActivity(),"delta_kcal");
@@ -68,23 +61,18 @@ public class DashboardFragment extends Fragment {
             ImageView icon=getActivity().findViewById(R.id.kcal_toast_icon);
             icon.setImageDrawable(getResources().getDrawable( Integer.valueOf(delta_kcal) <0? R.drawable.dumbbel:R.drawable.apple));
             public_func.writeData(getActivity(),"delta_kcal","");
-
             TextView look=getActivity().findViewById(R.id.look);
             look.setOnClickListener(new View.OnClickListener() {
-                
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), today_detail.class);
                     intent.putExtra("request_input",Integer.parseInt(delta_kcal) >0);
                     startActivity(intent);
                 }
             });
-
             layout.setVisibility(View.VISIBLE);
             layout.animate().alpha(1).setDuration(2000).withEndAction(new Runnable() {
-                
                     public void run() {
                         layout.animate().alpha(0).setDuration(1000).withEndAction(new Runnable() {
-                            
                             public void run() {
                                 layout.setVisibility(View.INVISIBLE);
                             }
@@ -92,7 +80,5 @@ public class DashboardFragment extends Fragment {
                 }
             });
         }
-
     }
-
 }
