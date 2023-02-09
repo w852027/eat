@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import java.io.Serializable;
 import java.util.ArrayList;
 public class today_detail extends Activity {
     private boolean is_request_input;
@@ -23,6 +24,63 @@ public class today_detail extends Activity {
         if(is_request_input) load_input_data();
         else load_output_data();
     }
+    private void load_input_data(){
+        LinearLayout io_kcal_today_table = findViewById(R.id.io_kcal_today_table);
+        for(kcal_food food :User.load_kcal_input(this,-1,public_func.timestamp_today(),public_func.timestamp_now())){
+            View cell = LayoutInflater.from(this).inflate(R.layout.today_detial_table_cell, null);
+            cell.setTag(false);
+            ((TextView)cell.findViewById(R.id.type)).setText(kcal_foods.foodtype2string(food.type));
+            ((ImageView)cell.findViewById(R.id.type_icon)).setImageDrawable(getResources().getDrawable(kcal_foods.foodtype2icon_resource_id(food.type)));
+            ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(food.kcal));
+            ((TextView)cell.findViewById(R.id.name)).setText(food.name);
+            cell.findViewById(R.id.edit_btn).setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    edit_onClick(cell,food);
+                }
+            });
+            cell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cell_onClick(v);
+                }
+            });
+                io_kcal_today_table.addView(cell);
+                cells.add(cell);
+        }
+    }
+    private void load_output_data(){
+        LinearLayout io_kcal_today_table = findViewById(R.id.io_kcal_today_table);
+        for(kcal_sport sport :User.load_kcal_output(this,-1,public_func.timestamp_today(),public_func.timestamp_now())){
+            View cell = LayoutInflater.from(this).inflate(R.layout.today_detial_table_cell, null);
+            cell.setTag(false);
+            ((TextView)cell.findViewById(R.id.type)).setText(sport.name);
+            ((ImageView)cell.findViewById(R.id.type_icon)).setImageDrawable(getResources().getDrawable(sport.icon_resource_id));
+            ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(sport.kcal));
+            cell.findViewById(R.id.edit_btn).setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    edit_onClick(cell,sport);
+                }
+            });
+            cell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cell_onClick(v);
+                }
+            });
+            io_kcal_today_table.addView(cell);
+            cells.add(cell);
+        }
+    }
+    private void cell_onClick(View c){
+        if(!(boolean)c.getTag())
+            for(View cell:cells){
+                cell.setTag(true);
+                change_edit_mode(cell);
+            }
+        change_edit_mode(c);
+    }
     private void change_edit_mode(View cell){
         ImageView edit_btn=cell.findViewById(R.id.edit_btn);
         ConstraintLayout kcal_layout=cell.findViewById(R.id.kcal_layout);
@@ -35,56 +93,12 @@ public class today_detail extends Activity {
         kcal_layout.setTranslationX(editmode?0:edit_btn.getWidth());
         cell.setTag(editmode);
     }
-    private void load_input_data(){
-        LinearLayout io_kcal_today_table = findViewById(R.id.io_kcal_today_table);
-            for(kcal_food food :User.load_kcal_input(this,-1,public_func.timestamp_today(),public_func.timestamp_now())){
-            View cell = LayoutInflater.from(this).inflate(R.layout.today_detial_table_cell, null);
-            cell.setTag(false);
-            ((TextView)cell.findViewById(R.id.type)).setText(kcal_foods.foodtype2string(food.type));
-            ((ImageView)cell.findViewById(R.id.type_icon)).setImageDrawable(getResources().getDrawable(kcal_foods.foodtype2icon_resource_id(food.type)));
-            ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(food.kcal));
-            ((TextView)cell.findViewById(R.id.name)).setText(food.name);
-            cell.findViewById(R.id.edit_btn).setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    change_edit_mode(cell);
-                    Intent intent = new Intent(cell.getContext(), edit_today_detail.class);
-                    intent.putExtra("request_input",true);
-                    intent.putExtra("data",food);
-                    startActivity(intent);
-                }
-            });
-            cell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!(boolean)cell.getTag())
-                        for(View cell:cells){
-                            cell.setTag(true);
-                            change_edit_mode(cell);
-                        }
-                    change_edit_mode(cell);
-                }
-            });
-                io_kcal_today_table.addView(cell);
-                cells.add(cell);
-        }
-    }
-    private void load_output_data(){
-        LinearLayout io_kcal_today_table = findViewById(R.id.io_kcal_today_table);
-        for(kcal_sport sport :User.load_kcal_output(this,-1,public_func.timestamp_today(),public_func.timestamp_now())){
-            View cell = LayoutInflater.from(this).inflate(R.layout.today_detial_table_cell, null);
-            ((TextView)cell.findViewById(R.id.type)).setText(sport.name);
-            ((ImageView)cell.findViewById(R.id.type_icon)).setImageDrawable(getResources().getDrawable(sport.icon_resource_id));
-            ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(sport.kcal));
-            ((TextView)cell.findViewById(R.id.name)).setText("");
-            cell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-            io_kcal_today_table.addView(cell);
-        }
+    private void edit_onClick(View cell, Serializable data){
+        change_edit_mode(cell);
+        Intent intent = new Intent(cell.getContext(), edit_today_detail.class);
+        intent.putExtra("request_input",is_request_input);
+        intent.putExtra("data",data);
+        startActivity(intent);
     }
 
 }
