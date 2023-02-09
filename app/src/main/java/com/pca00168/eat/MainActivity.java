@@ -38,10 +38,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.black);
-        logged_in();
-        return;
-        //google_login();
-        //fb_login();
+        google_login();
+        fb_login();
     }
     private static final String CONTACTS_SCOPE = "https://www.googleapis.com/auth/user.gender.read";
     private static final String CONTACTS_SCOPE2 = "https://www.googleapis.com/auth/user.birthday.read";
