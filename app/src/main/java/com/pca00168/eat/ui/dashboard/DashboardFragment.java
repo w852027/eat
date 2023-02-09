@@ -26,12 +26,12 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-    @Override
+    
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-    @Override
+    
     public void onStart() {
         super.onStart();
         load_data();
@@ -71,7 +71,7 @@ public class DashboardFragment extends Fragment {
 
             TextView look=getActivity().findViewById(R.id.look);
             look.setOnClickListener(new View.OnClickListener() {
-                @Override
+                
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), today_detail.class);
                     intent.putExtra("request_input",Integer.parseInt(delta_kcal) >0);
@@ -81,10 +81,10 @@ public class DashboardFragment extends Fragment {
 
             layout.setVisibility(View.VISIBLE);
             layout.animate().alpha(1).setDuration(2000).withEndAction(new Runnable() {
-                @Override
+                
                     public void run() {
                         layout.animate().alpha(0).setDuration(1000).withEndAction(new Runnable() {
-                            @Override
+                            
                             public void run() {
                                 layout.setVisibility(View.INVISIBLE);
                             }

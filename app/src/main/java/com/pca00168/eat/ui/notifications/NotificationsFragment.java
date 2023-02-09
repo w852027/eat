@@ -24,7 +24,7 @@ public class NotificationsFragment extends Fragment {
     private  short food_type=0;
     private Button confirm_add_btn;
     private ArrayList<ImageView> input_food;
-    @Override
+    
     public void onDestroyView() {
         super.onDestroyView();
         root = null;

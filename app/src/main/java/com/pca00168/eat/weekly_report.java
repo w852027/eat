@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 public class weekly_report extends AppCompatActivity {
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -35,7 +35,7 @@ public class weekly_report extends AppCompatActivity {
             ((TextView)cell.findViewById(R.id.count_value)).setText(String.valueOf(foods.size()));
             ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(foods.total_kcal()));
             cell.setOnClickListener(new View.OnClickListener() {
-                @Override
+                
                 public void onClick(View v) {
 
 

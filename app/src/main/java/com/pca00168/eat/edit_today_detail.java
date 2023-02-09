@@ -19,7 +19,7 @@ public class edit_today_detail extends Activity {
     private kcal_sport sport;
     private TextInputEditText kcal_value,name;
     private ArrayList<View> cells=new ArrayList<>();
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -56,7 +56,7 @@ public class edit_today_detail extends Activity {
             cells.add(cell);
             cell_select(cell,food.type==t);
             cell.setOnClickListener(new View.OnClickListener() {
-                @Override
+                
                 public void onClick(View v) {
                     for(View c:cells) cell_select(c,false);
                     cell_select(cell,true);
@@ -79,7 +79,7 @@ public class edit_today_detail extends Activity {
             cells.add(cell);
             cell_select(cell, s.type == sport.type);
             cell.setOnClickListener(new View.OnClickListener() {
-                @Override
+                
                 public void onClick(View v) {
                     for (View c : cells) cell_select(c, false);
                     cell_select(cell, true);

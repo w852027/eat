@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class today_detail extends Activity {
     private boolean is_request_input;
     private ArrayList<View> cells=new ArrayList<>();
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -34,13 +34,13 @@ public class today_detail extends Activity {
             ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(food.kcal));
             ((TextView)cell.findViewById(R.id.name)).setText(food.name);
             cell.findViewById(R.id.edit_btn).setOnClickListener(new View.OnClickListener(){
-                @Override
+                
                 public void onClick(View v) {
                     edit_onClick(cell,food);
                 }
             });
             cell.setOnClickListener(new View.OnClickListener() {
-                @Override
+                
                 public void onClick(View v) {
                     cell_onClick(v);
                 }
@@ -58,13 +58,13 @@ public class today_detail extends Activity {
             ((ImageView)cell.findViewById(R.id.type_icon)).setImageDrawable(getResources().getDrawable(sport.icon_resource_id));
             ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(sport.kcal));
             cell.findViewById(R.id.edit_btn).setOnClickListener(new View.OnClickListener(){
-                @Override
+                
                 public void onClick(View v) {
                     edit_onClick(cell,sport);
                 }
             });
             cell.setOnClickListener(new View.OnClickListener() {
-                @Override
+                
                 public void onClick(View v) {
                     cell_onClick(v);
                 }

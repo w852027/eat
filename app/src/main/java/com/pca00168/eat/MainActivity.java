@@ -33,7 +33,7 @@ import java.util.List;
 public class MainActivity extends Activity {
     CallbackManager callbackManager;
     GoogleSignInClient mGoogleSignInClient;
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
     }
     private static final String CONTACTS_SCOPE = "https://www.googleapis.com/auth/user.gender.read";
     private static final String CONTACTS_SCOPE2 = "https://www.googleapis.com/auth/user.birthday.read";
-    @Override
+    
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
     }
     private void requestAccountInfo(GoogleSignInAccount account) {
         new Thread(new Runnable() {
-            @Override
+            
             public void run() {
                 try {
                     GoogleAccountCredential googleAccountCredential = GoogleAccountCredential.usingOAuth2(MainActivity.this, Collections.singleton(CONTACTS_SCOPE)).setSelectedAccount(account.getAccount());
@@ -115,15 +115,15 @@ public class MainActivity extends Activity {
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
+            
             public void onSuccess(LoginResult loginResult) {
                 logged_in();
             }
-            @Override
+            
             public void onCancel() {
 
             }
-            @Override
+            
             public void onError(FacebookException exception) {
                 err(exception.getMessage());
             }

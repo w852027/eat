@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class user_settings extends AppCompatActivity {
     ImageView user_avatar;
     TextView name;
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -30,7 +30,7 @@ public class user_settings extends AppCompatActivity {
 /*
         TextView logout=(TextView)findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View v) {
 
             }
@@ -38,7 +38,7 @@ public class user_settings extends AppCompatActivity {
 
         TextView delete_account=(TextView)findViewById(R.id.delete_account);
         delete_account.setOnClickListener(new View.OnClickListener() {
-            @Override
+            
             public void onClick(View v) {
 
             }

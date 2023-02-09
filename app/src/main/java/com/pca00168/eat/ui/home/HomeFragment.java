@@ -43,14 +43,14 @@ public class HomeFragment extends Fragment {
         });
         input_kcal = (TextInputEditText)root.findViewById(R.id.input_kcal);
         input_kcal.addTextChangedListener(new TextWatcher() {
-            @Override
+            
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {   }
-            @Override
+            
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 confirm_add_btn.setBackground(getResources().getDrawable( count>0 ? R.drawable.conform_add_orange : R.drawable.conform_add_gray));
                 confirm_add_btn.setClickable(count>0);
             }
-            @Override
+            
             public void afterTextChanged(Editable editable) {  }
         });
         load_sport_list();
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
             }
             ((ImageView)view.findViewById(R.id.sport_item_image)).setImageDrawable(getResources().getDrawable(sport_item.icon_resource_id));
             view.setOnClickListener(new View.OnClickListener() {
-                @Override
+                
                 public void onClick(View v) {
                     sport=sport_item;
                     input_kcal.setText(String.valueOf(sport_item.kcal));
@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
            sport_list.addView(view);
         }
     }
-    @Override
+    
     public void onDestroyView() {
         super.onDestroyView();
         root = null;

@@ -69,7 +69,7 @@ public class public_func {
         builder.setView(editText);
         builder.setTitle(title);
         builder.setPositiveButton(okText, new DialogInterface.OnClickListener() {
-            @Override
+            
             public void onClick(DialogInterface dialogInterface, int i) {
                 //Toast.makeText(MainActivity.this, editText.getText().toString()+"您好~", Toast.LENGTH_SHORT).show();
 
@@ -77,7 +77,7 @@ public class public_func {
             }
         });
         builder.setNegativeButton(cancelText, new DialogInterface.OnClickListener() {
-            @Override
+            
             public void onClick(DialogInterface dialogInterface, int i) {
                 Done.Cancel();
             }
