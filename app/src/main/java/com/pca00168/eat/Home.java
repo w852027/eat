@@ -48,4 +48,8 @@ public class Home extends AppCompatActivity {
         intent.putExtra("request_input",false);
         startActivity(intent);
     }
+    public void animal_onClick(View view) {
+        Intent intent = new Intent(this, My_Closet.class);
+        startActivity(intent);
+    }
 }

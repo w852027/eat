@@ -27,15 +27,15 @@
         android:layout_height="80sp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="29dp"
+        android:onClick="animal_onClick"
+
         android:src="@color/white"
-
-        app:riv_corner_radius="40sp"
-        app:riv_border_width="4sp"
-        app:riv_border_color="#FCC91C"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+
+        app:riv_border_color="#FCC91C"
+        app:riv_border_width="4sp"
+        app:riv_corner_radius="40sp" />
 
     <Button
         android:id="@+id/username"
