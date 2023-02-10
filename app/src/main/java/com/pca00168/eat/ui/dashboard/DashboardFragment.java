@@ -26,7 +26,6 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    @Override
     public void onResume() {
         super.onResume();
         load_data();

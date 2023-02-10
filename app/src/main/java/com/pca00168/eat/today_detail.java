@@ -26,8 +26,12 @@ public class today_detail extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        StatusBarUtils.setWindowStatusBarColor(this,R.color.main_green);
         setContentView(R.layout.today_detial);
         is_request_input=getIntent().getBooleanExtra("request_input",true);
+
+        if(is_request_input) load_input_data();
+        else load_output_data();
     }
     private void load_input_data(){
         LinearLayout io_kcal_today_table = findViewById(R.id.io_kcal_today_table);
@@ -108,5 +112,11 @@ public class today_detail extends Activity {
         intent.putExtra("data",data);
         startActivity(intent);
     }
-
+    public void exit_onClick(View v){
+        finish();
+    }
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
+    }
 }
