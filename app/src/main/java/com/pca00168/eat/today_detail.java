@@ -1,5 +1,4 @@
 package com.pca00168.eat;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,7 +49,6 @@ public class today_detail extends Activity {
                 }
             });
             cell.setOnClickListener(new View.OnClickListener() {
-                
                 public void onClick(View v) {
                     cell_onClick(v);
                 }
@@ -70,13 +68,11 @@ public class today_detail extends Activity {
             ((ImageView)cell.findViewById(R.id.type_icon)).setImageDrawable(getResources().getDrawable(sport.icon_resource_id));
             ((TextView)cell.findViewById(R.id.kcal_value)).setText(String.valueOf(sport.kcal));
             cell.findViewById(R.id.edit_btn).setOnClickListener(new View.OnClickListener(){
-                
                 public void onClick(View v) {
                     edit_onClick(cell,sport);
                 }
             });
             cell.setOnClickListener(new View.OnClickListener() {
-                
                 public void onClick(View v) {
                     cell_onClick(v);
                 }
@@ -113,10 +109,6 @@ public class today_detail extends Activity {
         startActivity(intent);
     }
     public void exit_onClick(View v){
-        finish();
-    }
-    public void finish() {
-        super.finish();
-        overridePendingTransition(0, 0);
+        onBackPressed();
     }
 }

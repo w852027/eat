@@ -41,6 +41,25 @@ public class User {
         s.delete( is_input ?  "input_kcal" : "output_kcal",String.format("time=%d",timestamp),null);
         s.close();
     }
+    public static void edit_kcal_input(Context context, kcal_food food){
+        ContentValues values = new ContentValues();
+        values.put("foodtype", food.type);
+        values.put("foodname",food.name);
+        values.put("kcal", food.kcal);
+        SqlDataBaseHelper db=new SqlDataBaseHelper(context);
+        SQLiteDatabase s = db.getWritableDatabase();
+        s.update( "input_kcal",values,String.format("time=%d",food.time),null);
+        s.close();
+    }
+    public static void edit_kcal_output(Context context, kcal_sport sport){
+        ContentValues values = new ContentValues();
+        values.put("sporttype", sport.type);
+        values.put("kcal", sport.kcal);
+        SqlDataBaseHelper db=new SqlDataBaseHelper(context);
+        SQLiteDatabase s = db.getWritableDatabase();
+        s.update( "output_kcal",values,String.format("time=%d",sport.time),null);
+        s.close();
+    }
     public static kcal_foods load_kcal_input(Context context,int food_type,long from_timestamp,long to_timestamp){//-1:全部
         SqlDataBaseHelper db=new SqlDataBaseHelper(context);
         SQLiteDatabase s = db.getReadableDatabase();

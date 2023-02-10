@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
 
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
                     tools:ignore="TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

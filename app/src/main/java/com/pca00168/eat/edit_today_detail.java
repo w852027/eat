@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class edit_today_detail extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //StatusBarUtils.setWindowStatusBarColor(this,R.color.main_green);
         setContentView(R.layout.edit_today_detail);
         kcal_value=findViewById(R.id.kcal_value);
         name=findViewById(R.id.name);
@@ -105,6 +107,35 @@ public class edit_today_detail extends Activity {
     }
     public void delete_click(View view){
         User.delete_kcal_data(this, is_request_input, is_request_input ? food.time : sport.time);
-        finish();
+        onBackPressed();
+    }
+    public void okClick(View view){
+        if(is_request_input){
+            food.name=name.getText().toString();
+            food.kcal=Integer.parseInt(kcal_value.getText().toString());
+            User.edit_kcal_input(this,food);
+        }else{
+            sport.kcal=Integer.parseInt(kcal_value.getText().toString());
+            User.edit_kcal_output(this,sport);
+        }
+        onBackPressed();
+    }
+    public void exit_onClick(View v){
+        onBackPressed();
+    }
+    public void hide_keyboard(View v){
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager manager= (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow( view.getWindowToken(), 0);
+            kcal_value.clearFocus();
+            name.clearFocus();
+        }
+    }
+    public void onBackPressed(){
+        if( kcal_value.isFocused() || name.isFocused() )
+            hide_keyboard(null);
+        else
+            super.onBackPressed();
     }
 }
