@@ -16,18 +16,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 public class DashboardFragment extends Fragment {
-    private FragmentDashboardBinding binding;
     private View root;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(DashboardViewModel.class);
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        root=binding.getRoot();
-        load_data();
+        root=FragmentDashboardBinding.inflate(inflater, container, false).getRoot();
+        ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
+        layout.setVisibility(View.INVISIBLE);
         return root;
     }
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        root = null;
     }
     public void onResume() {
         super.onResume();
@@ -53,10 +52,9 @@ public class DashboardFragment extends Fragment {
                 ).total_kcal())
         );
         ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
-        layout.setVisibility(View.INVISIBLE);
         String delta_kcal=public_func.readData(getActivity(),"delta_kcal");
         if(delta_kcal!=""){
-            TextView kcal=getActivity().findViewById(R.id.kcal_toast_delta);
+            TextView kcal=root.findViewById(R.id.kcal_toast_delta);
             kcal.setText(Integer.parseInt(delta_kcal) <0?delta_kcal.substring(1):delta_kcal);
             TextView add_minus=root.findViewById(R.id.kcal_toast_text);
             add_minus.setText(Integer.parseInt(delta_kcal) <0?"消耗":"增加");
