@@ -17,10 +17,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
+    private View root;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(DashboardViewModel.class);
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        root=binding.getRoot();
+        load_data();
+        return root;
     }
     public void onDestroyView() {
         super.onDestroyView();
@@ -31,7 +34,7 @@ public class DashboardFragment extends Fragment {
         load_data();
     }
     private void load_data(){
-        TextView to_eat_value=getActivity().findViewById(R.id.to_eat_value);
+        TextView to_eat_value=root.findViewById(R.id.to_eat_value);
         to_eat_value.setText(String.valueOf(
                 User.load_kcal_input(
                         getActivity(),
@@ -40,7 +43,7 @@ public class DashboardFragment extends Fragment {
                         public_func.timestamp_now()
                 ).total_kcal())
         );
-        TextView dumbbel_value=getActivity().findViewById(R.id.dumbbel_value);
+        TextView dumbbel_value=root.findViewById(R.id.dumbbel_value);
         dumbbel_value.setText(String.valueOf(
                 User.load_kcal_output(
                         getActivity(),
@@ -49,18 +52,18 @@ public class DashboardFragment extends Fragment {
                         public_func.timestamp_now()
                 ).total_kcal())
         );
-        ConstraintLayout layout=getActivity().findViewById(R.id.kcal_toast_view);
+        ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
         String delta_kcal=public_func.readData(getActivity(),"delta_kcal");
         if(delta_kcal!=""){
             TextView kcal=getActivity().findViewById(R.id.kcal_toast_delta);
             kcal.setText(Integer.parseInt(delta_kcal) <0?delta_kcal.substring(1):delta_kcal);
-            TextView add_minus=getActivity().findViewById(R.id.kcal_toast_text);
+            TextView add_minus=root.findViewById(R.id.kcal_toast_text);
             add_minus.setText(Integer.parseInt(delta_kcal) <0?"消耗":"增加");
-            ImageView icon=getActivity().findViewById(R.id.kcal_toast_icon);
+            ImageView icon=root.findViewById(R.id.kcal_toast_icon);
             icon.setImageDrawable(getResources().getDrawable( Integer.valueOf(delta_kcal) <0? R.drawable.dumbbel:R.drawable.apple));
             public_func.writeData(getActivity(),"delta_kcal","");
-            TextView look=getActivity().findViewById(R.id.look);
+            TextView look=root.findViewById(R.id.look);
             look.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), today_detail.class);
