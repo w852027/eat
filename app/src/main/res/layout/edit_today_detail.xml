@@ -16,6 +16,52 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/confirm_edit_btn"
+            android:layout_width="120dp"
+            android:layout_height="28dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/conform_add_orange"
+            android:onClick="okClick"
+            android:text="確認修改"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@+id/confirm_edit_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout11">
+
+            <LinearLayout
+                android:id="@+id/type_table"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="clip_horizontal"
+                android:orientation="horizontal"></LinearLayout>
+        </HorizontalScrollView>
+
+        <ImageView
+            android:id="@+id/delete_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:onClick="delete_click"
+            android:src="@drawable/icon_trash_can"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/edit"
             android:layout_width="83sp"
@@ -31,17 +77,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/delete_btn"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="12dp"
-            android:onClick="delete_click"
-            android:src="@drawable/icon_trash_can"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout11"
             android:layout_width="wrap_content"
@@ -52,6 +87,14 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit">
+
+            <ImageView
+                android:id="@+id/apple"
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:src="@drawable/apple"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/food_name" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/food_name"
@@ -79,23 +122,15 @@
                     android:hint="請輸入新的食物名稱"
                     android:paddingStart="8sp"
                     android:paddingEnd="8sp"
+                    android:selectAllOnFocus="true"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:selectAllOnFocus="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/pencil"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/apple"
-                android:layout_width="24sp"
-                android:layout_height="24sp"
-                android:src="@drawable/apple"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/food_name" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/kcal_layout"
@@ -106,6 +141,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/apple"
                 app:layout_constraintTop_toBottomOf="@+id/food_name">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="kcal"
+                    android:textColor="@color/main_pink"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/kcal_value"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/kcal_value"
@@ -124,53 +174,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="kcal"
-                    android:textColor="@color/main_pink"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/kcal_value"
-                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <HorizontalScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="40dp"
-            android:scrollbars="none"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout11">
-
-            <LinearLayout
-                android:id="@+id/type_table"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="clip_horizontal"
-                android:orientation="horizontal"></LinearLayout>
-        </HorizontalScrollView>
-
-        <Button
-            android:id="@+id/confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="okClick"
-            android:text="Button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

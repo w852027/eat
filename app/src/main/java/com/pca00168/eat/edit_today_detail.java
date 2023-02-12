@@ -3,10 +3,13 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ public class edit_today_detail extends Activity {
     private kcal_food food;
     private kcal_sport sport;
     private TextInputEditText kcal_value,name;
+    private Button confirm_edit_btn;
     private ArrayList<View> cells=new ArrayList<>();
     
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class edit_today_detail extends Activity {
         setContentView(R.layout.edit_today_detail);
         kcal_value=findViewById(R.id.kcal_value);
         name=findViewById(R.id.name);
-
+        confirm_edit_btn=findViewById(R.id.confirm_edit_btn);
         is_request_input=getIntent().getBooleanExtra("request_input",true);
        if(is_request_input){
            food= (kcal_food)getIntent().getSerializableExtra("data");
@@ -42,6 +46,21 @@ public class edit_today_detail extends Activity {
            kcal_value.setText(String.valueOf(sport.kcal));
            load_sport_types();
        }
+        kcal_value.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {  check_field_empty();}
+            public void afterTextChanged(Editable editable) {}
+        });
+        name.addTextChangedListener(new TextWatcher() {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {check_field_empty();}
+            public void afterTextChanged(Editable editable) {}
+        });
+    }
+    private void check_field_empty(){
+        boolean no_empty=(!is_request_input||name.getText().length()>0) && kcal_value.getText().length()>0;
+        confirm_edit_btn.setBackground(getResources().getDrawable( no_empty ? R.drawable.conform_add_orange : R.drawable.conform_add_gray));
+        confirm_edit_btn.setClickable(no_empty);
     }
     private void load_food_types(){
         LinearLayout type_table=findViewById(R.id.type_table);
