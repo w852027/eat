@@ -1,27 +1,26 @@
 package com.pca00168.eat;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 public class My_Closet extends AppCompatActivity {
-    private ImageView animal_cloth_2;
+    private FrameLayout animal;
+    private View animal1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         StatusBarUtils.setWindowStatusBarColor(this,R.color.main_yellow);
         setContentView(R.layout.my_closet);
-
+        animal=findViewById(R.id.animal);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View view = layoutInflater.inflate(R.layout.sport_item, null);
-        animal_cloth_2=findViewById(R.id.cloth_2);
+        animal1 = layoutInflater.inflate(R.layout.animal1_closet, null);
+        animal.addView(animal1);
         load_cothing();
     }
 
@@ -39,7 +38,7 @@ public class My_Closet extends AppCompatActivity {
                 ((ImageView)cloth_img).setImageDrawable(getResources().getDrawable(c.icon_resource_id));
                 cloth.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        animal_cloth_2.setImageDrawable(cloth_img.getDrawable());
+                        ((ImageView)animal1.findViewById(R.id.cloth_2)).setImageDrawable(cloth_img.getDrawable());
                     }
                 });
                 if(row1.getChildCount()<3)
