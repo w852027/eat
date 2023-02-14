@@ -43,11 +43,16 @@ public class My_Closet extends AppCompatActivity {
                             case 0:
                                 ((ImageView)animal1.findViewById(R.id.cloth_0)).setImageDrawable(cloth_img.getDrawable());
                                 break;
-                            case 1: case 2:
+                            case 1:
+                                ((ImageView)animal1.findViewById(R.id.cloth_2)).setImageDrawable(null);
                                 ((ImageView)animal1.findViewById(R.id.cloth_1)).setImageDrawable(cloth_img.getDrawable());
                                 break;
+                            case 2:
+                                ((ImageView)animal1.findViewById(R.id.cloth_1)).setImageDrawable(null);
+                                ((ImageView)animal1.findViewById(R.id.cloth_2)).setImageDrawable(cloth_img.getDrawable());
+                                break;
                             case 3:
-                                //((ImageView)animal1.findViewById(R.id.cloth_3)).setImageDrawable(cloth_img.getDrawable());
+                                ((ImageView)animal1.findViewById(R.id.cloth_3)).setImageDrawable(cloth_img.getDrawable());
                         }
                     }
                 });
