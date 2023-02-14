@@ -35,10 +35,20 @@ public class My_Closet extends AppCompatActivity {
             for(clothing c:clothings.clothing_list(type)){
                 View cloth = layoutInflater.inflate(R.layout.cloth_cell, null);
                 ImageView cloth_img=cloth.findViewById(R.id.clothing_image);
-                ((ImageView)cloth_img).setImageDrawable(getResources().getDrawable(c.icon_resource_id));
+                cloth_img.setImageDrawable(getResources().getDrawable(c.icon_resource_id));
+                short finalType = type;
                 cloth.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        ((ImageView)animal1.findViewById(R.id.cloth_2)).setImageDrawable(cloth_img.getDrawable());
+                        switch (finalType){
+                            case 0:
+                                ((ImageView)animal1.findViewById(R.id.cloth_0)).setImageDrawable(cloth_img.getDrawable());
+                                break;
+                            case 1: case 2:
+                                ((ImageView)animal1.findViewById(R.id.cloth_1)).setImageDrawable(cloth_img.getDrawable());
+                                break;
+                            case 3:
+                                //((ImageView)animal1.findViewById(R.id.cloth_3)).setImageDrawable(cloth_img.getDrawable());
+                        }
                     }
                 });
                 if(row1.getChildCount()<3)

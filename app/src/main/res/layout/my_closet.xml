@@ -85,7 +85,7 @@
             android:layout_marginEnd="60dp"
             android:layout_marginBottom="80dp"
             app:layout_constraintBottom_toBottomOf="@+id/cylinder"
-            app:layout_constraintDimensionRatio="0.64"
+            app:layout_constraintDimensionRatio="0.6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
