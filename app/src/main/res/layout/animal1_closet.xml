@@ -54,15 +54,14 @@ app:layout_constraintDimensionRatio="0.55">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@id/animal" />
 
-<ImageView
-    android:id="@+id/cloth_0"
-    android:layout_width="0dp"
-    android:layout_height="40dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginTop="17dp"
-    android:layout_marginEnd="30dp"
-    android:scaleType="centerCrop"
-    app:layout_constraintEnd_toEndOf="@id/animal"
-    app:layout_constraintStart_toStartOf="@id/animal"
-    app:layout_constraintTop_toTopOf="@id/animal" />
+    <ImageView
+        android:id="@+id/cloth_0"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="25dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@id/animal"
+        app:layout_constraintStart_toStartOf="@id/animal"
+        app:layout_constraintTop_toTopOf="@id/animal" />
 </androidx.constraintlayout.widget.ConstraintLayout>
