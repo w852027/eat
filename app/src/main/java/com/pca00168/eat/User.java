@@ -112,4 +112,26 @@ public class User {
         cursor.close();
         return items;
     }
+
+    public static clothings load_clothings(Context context,short main_type){//-1:全部
+        ThingDataBaseHelper db=new ThingDataBaseHelper(context);
+        SQLiteDatabase s = db.getReadableDatabase();
+        Cursor cursor = s.query(
+                "clothing",   // The table to query
+                null,             // The array of columns to return (pass null to get all)
+                main_type == -1 ? null : String.format("maintype=%d ",main_type),  // The columns for the WHERE clause
+                null,        // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+        clothings items = new clothings();
+        while(cursor.moveToNext()) {
+            short maintype=(short) cursor.getInt(cursor.getColumnIndexOrThrow("main_type"));
+            short subtype=(short) cursor.getInt(cursor.getColumnIndexOrThrow("short_type"));
+            items.add(clothings.clothing_list(maintype).get(subtype));
+        }
+        cursor.close();
+        return items;
+    }
 }

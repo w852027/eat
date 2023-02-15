@@ -32,7 +32,9 @@ public class My_Closet extends AppCompatActivity {
             ((TextView)cell.findViewById(R.id.type)).setText(clothings.clothtype2string(type));
             LinearLayout row1=cell.findViewById(R.id.row1);
             LinearLayout row2=cell.findViewById(R.id.row2);
-            for(clothing c:clothings.clothing_list(type)){
+            boolean haveclothing=false;
+            for(clothing c:User.load_clothings(this,type)){
+                haveclothing=true;
                 View cloth = layoutInflater.inflate(R.layout.cloth_cell, null);
                 ImageView cloth_img=cloth.findViewById(R.id.clothing_image);
                 cloth_img.setImageDrawable(getResources().getDrawable(c.icon_resource_id));
@@ -61,7 +63,6 @@ public class My_Closet extends AppCompatActivity {
                 else
                     row2.addView(cloth);
             }
-
             closet.addView(cell);
         }
     }
