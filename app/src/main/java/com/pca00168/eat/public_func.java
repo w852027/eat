@@ -4,10 +4,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.widget.EditText;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class public_func {
+    public static String host="https://raw.githubusercontent.com/w852027/w852027.github.io/main/eat/";
     public static int getDrawableId(Context context, String var) {
         try {  return context.getResources().getIdentifier(var, "drawable", context.getPackageName());  } catch (Exception e) {  return 0;  }
     }
@@ -26,6 +38,22 @@ public class public_func {
         else editor.putString(key,value);//放入字串，並定義索引為key
         /**提交；提交結果將會回傳一布林值，若不需要提交結果，則可使用.apply()*/
         return editor.commit();
+    }
+    public static void http_webapi(String url, WebAPICallback completion){
+        Call call = (new OkHttpClient().newBuilder().build()).newCall(new Request.Builder().url(url).build());
+        call.enqueue(new Callback() {
+            public void onResponse(Call call, Response response) throws IOException {
+                try{
+                    completion.success(new JSONObject(response.body().string()));
+                }
+                catch(JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            public void onFailure(Call call, IOException e) {
+                completion.fail(e);
+            }
+        });
     }
     public static String date2string(Date date){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

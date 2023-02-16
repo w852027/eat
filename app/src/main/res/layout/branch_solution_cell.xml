@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/branch_solution_cell"
+    android:layout_width="match_parent"
+    android:layout_height="132dp">
+
+    <TextView
+        android:id="@+id/branch_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="0"
+        android:textColor="#427D73"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/branch_icon"
+        app:layout_constraintStart_toEndOf="@+id/branch_icon"
+        app:layout_constraintTop_toTopOf="@+id/branch_icon" />
+
+    <TextView
+        android:id="@+id/branch_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginBottom="10dp"
+        android:text="樹枝"
+        android:textColor="#427D73"
+        app:layout_constraintBottom_toTopOf="@+id/branch_icon"
+        app:layout_constraintStart_toEndOf="@+id/branch_pic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/branch_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="39dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/branch"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/branch_pic" />
+
+    <ImageView
+        android:id="@+id/branch_pic"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/branch_cost"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/border_yellow"
+        android:gravity="center"
+        android:text="NT 0"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.504" />
+</androidx.constraintlayout.widget.ConstraintLayout>
