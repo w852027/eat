@@ -24,12 +24,14 @@ import okhttp3.Headers;
 public class DashboardFragment extends Fragment {
     private View root;
     private ImageView bg;
-    private int today_minute;
+    private int today_minute,rise_up,sunset;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(DashboardViewModel.class);
         root=FragmentDashboardBinding.inflate(inflater, container, false).getRoot();
+        rise_up=public_func.readDataInt(getActivity(),"rise_up_minute");
+        sunset=public_func.readDataInt(getActivity(),"sunset_minute");
         bg=root.findViewById(R.id.bg);
-        bg.setImageDrawable(getResources().getDrawable(public_func.readDataBoolean(getActivity(),"night")?R.drawable.night_bg:R.drawable.morning_bg));
+        set_bg();
         ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
         return root;
@@ -37,6 +39,10 @@ public class DashboardFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         root = null;
+    }
+    private void set_bg(){
+        boolean night=today_minute<rise_up||today_minute>sunset;
+        bg.setImageDrawable(getResources().getDrawable(night?R.drawable.night_bg:R.drawable.morning_bg));
     }
     public void onResume() {
         super.onResume();
@@ -52,7 +58,6 @@ public class DashboardFragment extends Fragment {
                 ),new public_func.WebAPICallback(){
                     @Override
                     public void success(JSONObject item) throws JSONException {
-                        int rise_up=0,sunset=0;
                           JSONArray arr=item.getJSONObject("records").
                                   getJSONObject("locations").getJSONArray("location").getJSONObject(0).
                                   getJSONArray("time").getJSONObject(0).getJSONArray("parameter");
@@ -60,13 +65,15 @@ public class DashboardFragment extends Fragment {
                               if(arr.getJSONObject(i).getString("parameterName").equals("日出時刻")){
                                   String time = arr.getJSONObject(i).getString("parameterValue");
                                   rise_up=Integer.parseInt(time.split(":")[0])*60+Integer.parseInt(time.split(":")[1]);
+                                  public_func.writeData(getActivity(),"rise_up_minute",rise_up);
                               }
                               if(arr.getJSONObject(i).getString("parameterName").equals("日沒時刻")){
                                   String time = arr.getJSONObject(i).getString("parameterValue");
                                   sunset=Integer.parseInt(time.split(":")[0])*60+Integer.parseInt(time.split(":")[1]);
+                                  public_func.writeData(getActivity(),"sunset_minute",sunset);
                               }
                           }
-                          set_bg(today_minute<rise_up||today_minute>sunset);
+                        set_bg();
                     }
                     @Override
                     public void fail(IOException e) {
@@ -74,10 +81,7 @@ public class DashboardFragment extends Fragment {
                 }
         );
     }
-    private void set_bg(boolean night){
-        bg.setImageDrawable(getResources().getDrawable(night?R.drawable.night_bg:R.drawable.morning_bg));
-        public_func.writeData(getActivity(),"night",night);
-    }
+
     private void load_data(){
         TextView to_eat_value=root.findViewById(R.id.to_eat_value);
         to_eat_value.setText(String.valueOf(
