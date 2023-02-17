@@ -1,7 +1,5 @@
 package com.pca00168.eat;
-
 import android.content.Intent;
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,16 +8,10 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 public class Mine extends AppCompatActivity {
-    ImageView user_avatar;
-    TextView name;
-    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -27,19 +19,21 @@ public class Mine extends AppCompatActivity {
         StatusBarUtils.setWindowStatusBarColor(this,R.color.main_green);
         setContentView(R.layout.activity_mine);
         load_data();
-        load_settings_list();
     }
-
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus){
+            load_settings_list();
+        }
+    }
     private void load_data(){
-        user_avatar=(ImageView) findViewById(R.id.user_avatar);
-        Picasso.get().load(User.getUserAvatar(this)).into(user_avatar);
-        name=(TextView) findViewById(R.id.username);
-        name.setText(User.getUserName(this));
+        Picasso.get().load(User.getUserAvatar(this)).into((ImageView) findViewById(R.id.user_avatar));
+        ((TextView) findViewById(R.id.username)).setText(User.getUserName(this));
      }
 
     private void load_settings_list() {
         LinearLayout table_list = (LinearLayout) findViewById(R.id.table);
-
+        table_list.removeAllViews();
         ArrayList<ArrayList> table_list_arr = new ArrayList();//{名稱,圖片檔名,資訊(true false為開關),點擊事件,接下來要不要分隔線(不要的話填null，要的話什麼都不要填)}
         table_list_arr.add(new ArrayList<>(Arrays.asList("基本設定", null, "section",null)));
         table_list_arr.add(new ArrayList<>(Arrays.asList("音效", "icon_sound", "true",(new View.OnClickListener() {
@@ -62,23 +56,22 @@ public class Mine extends AppCompatActivity {
         table_list_arr.add(new ArrayList<>(Arrays.asList("語言", "icon_language", "繁體中文",null)));
         table_list_arr.add(new ArrayList<>(Arrays.asList("用戶設定", "icon_user_settings", "",(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(Mine.this, user_settings.class);
-                startActivity(intent);
+                startActivity(new Intent(Mine.this, user_settings.class));
             }
         }),null)));
-
         table_list_arr.add(new ArrayList<>(Arrays.asList("數值設定", null, "section",null)));
-
-        table_list_arr.add(new ArrayList<>(Arrays.asList("每日基礎代謝", "icon_apple", "0kcal",(new View.OnClickListener() {
+        table_list_arr.add(new ArrayList<>(Arrays.asList("每日基礎代謝", "icon_apple", public_func.readDataInt(this, "dailyBMR") +"kcal",(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent intent = new Intent(Mine.this, edit_daily_kcal.class);
+                intent.putExtra("request_input",true);
+                startActivity(intent);
             }
         }))));
-        table_list_arr.add(new ArrayList<>(Arrays.asList("每日運動目標", "icon_dumbbell", "0kcal",(new View.OnClickListener() {
+        table_list_arr.add(new ArrayList<>(Arrays.asList("每日運動目標", "icon_dumbbell", public_func.readDataInt(this, "dailySTK") +"kcal",(new View.OnClickListener() {
             public void onClick(View v) {
-
-
+                Intent intent = new Intent(Mine.this, edit_daily_kcal.class);
+                intent.putExtra("request_input",false);
+                startActivity(intent);
             }
         }))));
         table_list_arr.add(new ArrayList<>(Arrays.asList("睡眠時程", "icon_bed", "PM/11:00-AM/07:00",(new View.OnClickListener() {

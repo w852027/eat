@@ -137,6 +137,7 @@ public class edit_today_detail extends Activity {
             sport.kcal=Integer.parseInt(kcal_value.getText().toString());
             User.edit_kcal_output(this,sport);
         }
+        hide_keyboard(null);
         onBackPressed();
     }
     public void exit_onClick(View v){

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
@@ -15,6 +16,7 @@ import java.io.IOException;
 public class shop_branch extends AppCompatActivity {
     private JSONArray list;
     private LinearLayout branch_solution;
+    private ProgressBar progressBar;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -22,15 +24,16 @@ public class shop_branch extends AppCompatActivity {
         StatusBarUtils.setWindowStatusBarColor(this,R.color.main_yellow);
         setContentView(R.layout.shop_branch);
         branch_solution=findViewById(R.id.branch_solution);
-
+        progressBar=findViewById(R.id.progressBar);
         public_func.http_webapi(
                 com.pca00168.eat.public_func.host+"branch-solution.json",
-                new WebAPICallback(){
+                new public_func.WebAPICallback(){
                     @Override
                     public void success(JSONObject item) throws JSONException {
                         list=item.getJSONArray("items");
                         runOnUiThread(new Runnable() {
                             public void run() {
+                                ((android.view.ViewGroup)progressBar.getParent()).removeView(progressBar);
                                 try {
                                     load_solution();
                                 } catch (JSONException e) {

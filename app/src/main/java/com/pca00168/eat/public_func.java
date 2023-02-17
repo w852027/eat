@@ -25,9 +25,11 @@ public class public_func {
     }
     public static String readData(Context context,String key){
         if (key.length() == 0) return "";
-        /**創建SharedPreferences，索引為"Data"*/
-        SharedPreferences sharedPreferences=context.getSharedPreferences("Data", Context.MODE_PRIVATE);
-        return sharedPreferences.getString(key,"");//回傳在"Saved"索引之下的資料；若無儲存則回傳""
+        return context.getSharedPreferences("Data", Context.MODE_PRIVATE).getString(key,"");//回傳在"Saved"索引之下的資料；若無儲存則回傳""
+    }
+    public static int readDataInt(Context context,String key){
+        if (key.length() == 0) return 0;
+        return context.getSharedPreferences("Data", Context.MODE_PRIVATE).getInt(key,0);//回傳在"Saved"索引之下的資料；若無儲存則回傳""
     }
     public static boolean writeData(Context context,String key,String value){
         if (key.length() == 0)return false;
@@ -38,6 +40,18 @@ public class public_func {
         else editor.putString(key,value);//放入字串，並定義索引為key
         /**提交；提交結果將會回傳一布林值，若不需要提交結果，則可使用.apply()*/
         return editor.commit();
+    }
+    public static boolean writeData(Context context,String key,int value){
+        if (key.length() == 0)return false;
+        SharedPreferences sharedPreferences= context.getSharedPreferences("Data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();//取得SharedPreferences.Editor編輯內容
+        if(value==0)editor.remove(key);
+        else editor.putInt(key,value);
+        return editor.commit();
+    }
+    public interface  WebAPICallback {
+        void success(JSONObject item) throws JSONException;
+        void fail(IOException e);
     }
     public static void http_webapi(String url, WebAPICallback completion){
         Call call = (new OkHttpClient().newBuilder().build()).newCall(new Request.Builder().url(url).build());
@@ -85,8 +99,8 @@ public class public_func {
         return timestamp_today()-604800;
     }
     interface dialogResultCallBack {
-        public void OK(String text);
-        public void Cancel();
+        void OK(String text);
+        void Cancel();
     }
     public static void TextInput_Dialog(Context context,String title,dialogResultCallBack Done) {
         TextInput_Dialog(context,title,"確定","取消",Done);

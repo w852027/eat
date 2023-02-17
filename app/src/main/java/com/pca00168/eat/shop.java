@@ -1,7 +1,5 @@
 package com.pca00168.eat;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +8,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 public class shop extends AppCompatActivity {
-
     public void add_branch_onClick(View v){
         startActivity(new Intent(this,shop_branch.class));
     }
