@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import okhttp3.Headers;
 public class shop_branch extends AppCompatActivity {
     private JSONArray list;
     private LinearLayout branch_solution;
@@ -26,7 +27,7 @@ public class shop_branch extends AppCompatActivity {
         branch_solution=findViewById(R.id.branch_solution);
         progressBar=findViewById(R.id.progressBar);
         public_func.http_webapi(
-                com.pca00168.eat.public_func.host+"branch-solution.json",
+                com.pca00168.eat.public_func.host+"branch-solution.json",Headers.of(),
                 new public_func.WebAPICallback(){
                     @Override
                     public void success(JSONObject item) throws JSONException {

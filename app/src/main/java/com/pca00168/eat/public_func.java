@@ -14,6 +14,7 @@ import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -30,6 +31,10 @@ public class public_func {
     public static int readDataInt(Context context,String key){
         if (key.length() == 0) return 0;
         return context.getSharedPreferences("Data", Context.MODE_PRIVATE).getInt(key,0);//回傳在"Saved"索引之下的資料；若無儲存則回傳""
+    }
+    public static boolean readDataBoolean(Context context,String key){
+        if (key.length() == 0) return false;
+        return context.getSharedPreferences("Data", Context.MODE_PRIVATE).getBoolean(key,false);
     }
     public static boolean writeData(Context context,String key,String value){
         if (key.length() == 0)return false;
@@ -49,12 +54,21 @@ public class public_func {
         else editor.putInt(key,value);
         return editor.commit();
     }
+    public static boolean writeData(Context context,String key,boolean value){
+        if (key.length() == 0)return false;
+        SharedPreferences sharedPreferences= context.getSharedPreferences("Data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key,value);
+        return editor.commit();
+    }
     public interface  WebAPICallback {
         void success(JSONObject item) throws JSONException;
         void fail(IOException e);
     }
-    public static void http_webapi(String url, WebAPICallback completion){
-        Call call = (new OkHttpClient().newBuilder().build()).newCall(new Request.Builder().url(url).build());
+    public static void http_webapi(String url, Headers parameters, WebAPICallback completion){
+        Call call = (new OkHttpClient().newBuilder().build()).newCall(
+                new Request.Builder().url(url).headers(parameters).build()
+        );
         call.enqueue(new Callback() {
             public void onResponse(Call call, Response response) throws IOException {
                 try{
