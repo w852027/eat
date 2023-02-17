@@ -74,9 +74,17 @@ public class Mine extends AppCompatActivity {
                 startActivity(intent);
             }
         }))));
-        table_list_arr.add(new ArrayList<>(Arrays.asList("睡眠時程", "icon_bed", "PM/11:00-AM/07:00",(new View.OnClickListener() {
+        table_list_arr.add(new ArrayList<>(Arrays.asList("睡眠時程", "icon_bed",
+                String.format("%02d:%02d~%02d:%02d",
+                        public_func.readDataInt(this, "dailySleepH"),
+                        public_func.readDataInt(this, "dailySleepM"),
+                        public_func.readDataInt(this, "dailyWakeH"),
+                        public_func.readDataInt(this, "dailyWakeM")
+                        ),
+                (new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent intent = new Intent(Mine.this, edit_daily_sleep_time.class);
+                startActivity(intent);
             }
         }))));
 /*
