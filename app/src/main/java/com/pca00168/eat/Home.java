@@ -53,6 +53,9 @@ public class Home extends AppCompatActivity {
         intent.putExtra("request_input",false);
         startActivity(intent);
     }
+    public void branch_onClick(View v){
+        startActivity(new Intent(this,shop_branch.class));
+    }
     public void animal_onClick(View view) {
         Intent intent = new Intent(this, My_Closet.class);
         startActivity(intent);

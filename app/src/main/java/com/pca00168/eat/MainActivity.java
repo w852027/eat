@@ -128,6 +128,7 @@ public class MainActivity extends Activity {
                 .addOnFailureListener(e ->  Log.w("TAG", "There was an error reading data from Google Fit", e));
 */
         startActivity(new Intent(this,Home.class));
+        finish();
     }
 /*
     private void dumpDataSet(DataSet dataSet) {
