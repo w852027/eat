@@ -33,9 +33,20 @@ public class DashboardFragment extends Fragment {
         bg=root.findViewById(R.id.bg);
         ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
+
+
+
+
+
+
+
+
         return root;
     }
+
+
     public void onDestroyView() {
+
         super.onDestroyView();
         root = null;
     }
@@ -131,4 +142,15 @@ public class DashboardFragment extends Fragment {
             });
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 }

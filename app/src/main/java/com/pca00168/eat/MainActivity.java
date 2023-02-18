@@ -4,12 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,58 +18,65 @@ import com.google.api.services.people.v1.PeopleService;
 import com.google.api.services.people.v1.model.Birthday;
 import com.google.api.services.people.v1.model.Gender;
 import com.google.api.services.people.v1.model.Person;
-
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-
 public class MainActivity extends Activity {
-    CallbackManager callbackManager;
+    GoogleSignInAccount google_user;
     GoogleSignInClient mGoogleSignInClient;
-    
+    private static final String CONTACTS_SCOPE = "https://www.googleapis.com/auth/user.gender.read";
+    private static final String CONTACTS_SCOPE2 = "https://www.googleapis.com/auth/user.birthday.read";
+    public void google_click(View view){
+        findViewById(R.id.progress).setVisibility(View.VISIBLE);
+        findViewById(R.id.start_or_not).setVisibility(View.INVISIBLE);
+        findViewById(R.id.google_login).setVisibility(View.INVISIBLE);
+        startActivityForResult( mGoogleSignInClient.getSignInIntent(), 1);
+        }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.black);
-        google_login();
-        fb_login();
+
+
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestId()
+                .requestProfile()
+                .requestScopes(new Scope(CONTACTS_SCOPE))
+                .requestScopes(new Scope(CONTACTS_SCOPE2))
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        if(public_func.readData(this,"logged")!=""){
+            google_click(null);
+        }
     }
-    private static final String CONTACTS_SCOPE = "https://www.googleapis.com/auth/user.gender.read";
-    private static final String CONTACTS_SCOPE2 = "https://www.googleapis.com/auth/user.birthday.read";
+
     
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Scope scope1= new Scope(CONTACTS_SCOPE);
-                Scope scope2=new Scope(CONTACTS_SCOPE2);
-
-                if(account!=null){
-                    if (GoogleSignIn.hasPermissions(account,scope1)&&GoogleSignIn.hasPermissions(account, scope2) ) {
-                        public_func.writeData(this,"name",account.getDisplayName());
-                        public_func.writeData(this,"avatar",account.getPhotoUrl().toString());
-                        public_func.writeData(this,"email",account.getEmail());
-                        requestAccountInfo(account);
-                    } else{
+                google_user = task.getResult(ApiException.class);
+                if(google_user!=null){
+                    if (GoogleSignIn.hasPermissions(google_user,new Scope(CONTACTS_SCOPE))&&GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE2)) ) {
+                        public_func.writeData(this,"name",google_user.getDisplayName());
+                        public_func.writeData(this,"avatar",google_user.getPhotoUrl().toString());
+                        public_func.writeData(this,"email",google_user.getEmail());
+                        requestAccountInfo(google_user);
+                    } else
                         startActivityForResult( mGoogleSignInClient.getSignInIntent(), 1);
-                        //GoogleSignIn.requestPermissions(MainActivity.this, 2002, account, scope1);
-                        //GoogleSignIn.requestPermissions(MainActivity.this, 2002, account, scope2);
-                    }
                 }
             } catch (ApiException e) {
                 err(e.getMessage()+"登入失敗");
+                        findViewById(R.id.progress).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.start_or_not).setVisibility(View.VISIBLE);
+                        findViewById(R.id.google_login).setVisibility(View.VISIBLE);
             }
-
-        }else
-            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
     private void requestAccountInfo(GoogleSignInAccount account) {
         new Thread(new Runnable() {
-            
             public void run() {
                 try {
                     GoogleAccountCredential googleAccountCredential = GoogleAccountCredential.usingOAuth2(MainActivity.this, Collections.singleton(CONTACTS_SCOPE)).setSelectedAccount(account.getAccount());
@@ -101,59 +102,46 @@ public class MainActivity extends Activity {
                     }
                     public_func.writeData(getBaseContext(),"logged","google");
                     logged_in();
-                } catch (IOException e) {
-                            err("生日及性別取得失敗");
-                }
+                } catch (IOException e) { err("生日及性別取得失敗"); }
             }
         }).start();
     }
 
-    private void fb_login(){
-       // FacebookSdk.sdkInitialize(getApplicationContext());
-       // AppEventsLogger.activateApp(this);
-        callbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
-        loginButton.setReadPermissions(Arrays.asList("email", "public_profile", "user_friends"));
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            
-            public void onSuccess(LoginResult loginResult) {
-                logged_in();
-            }
-            
-            public void onCancel() {
-
-            }
-            
-            public void onError(FacebookException exception) {
-                err(exception.getMessage());
-            }
-        });
-    }
-
-    private void  google_login(){
-        if(public_func.readData(this,"logged")!=""){
-            logged_in();
-            return;
-        }
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(
-                GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestId()
-                .requestProfile()
-                .requestScopes(new Scope(CONTACTS_SCOPE))
-                .requestScopes(new Scope(CONTACTS_SCOPE2))
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
-    }
-
     private void logged_in(){
-        Intent intent = new Intent();
-        intent.setClass(MainActivity.this, Home.class);
-        startActivity(intent);
+        /*
+        DataReadRequest readRequest = new DataReadRequest.Builder()
+                .aggregate(DataType.AGGREGATE_CALORIES_EXPENDED)
+                .bucketByActivityType(1, TimeUnit.SECONDS)
+                .setTimeRange(public_func.timestamp_today(), public_func.timestamp_now(), TimeUnit.SECONDS)
+                .build();
+        Fitness.getHistoryClient(this,google_user )
+                .readData(readRequest)
+                .addOnSuccessListener (response -> {
+                    // The aggregate query puts datasets into buckets, so convert to a
+                    // single list of datasets
+                    for (Bucket bucket : response.getBuckets()) {
+                        for (DataSet dataSet : bucket.getDataSets()) {
+                            dumpDataSet(dataSet);
+                        }
+                    }
+                })
+                .addOnFailureListener(e ->  Log.w("TAG", "There was an error reading data from Google Fit", e));
+*/
+        startActivity(new Intent(this,Home.class));
     }
-    public void google_click(View view){
-        startActivityForResult( mGoogleSignInClient.getSignInIntent(), 1);
-    }
+/*
+    private void dumpDataSet(DataSet dataSet) {
+        Log.i("TAG", "Data returned for Data type: ${dataSet.dataType.name}");
+        for (DataPoint dp : dataSet.getDataPoints()) {
+            Log.i("TAG","Data point:");
+            Log.i("TAG","\tType: ${dp.dataType.name}");
+            Log.i("TAG","\tStart: ${dp.getStartTimeString()}");
+            Log.i("TAG","\tEnd: ${dp.getEndTimeString()}");
+            for (Field field : dp.getDataType().getFields()) {
+                Log.i("TAG","\tField: ${field.name.toString()} Value: ${dp.getValue(field)}");
+            }
+        }
+    }*/
     private void err(String msg){
         Toast.makeText(this,msg , Toast.LENGTH_LONG).show();
     }
