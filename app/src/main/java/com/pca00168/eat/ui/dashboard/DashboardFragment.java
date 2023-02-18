@@ -31,7 +31,6 @@ public class DashboardFragment extends Fragment {
         rise_up=public_func.readDataInt(getActivity(),"rise_up_minute");
         sunset=public_func.readDataInt(getActivity(),"sunset_minute");
         bg=root.findViewById(R.id.bg);
-        set_bg();
         ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
         return root;
@@ -47,6 +46,7 @@ public class DashboardFragment extends Fragment {
     public void onResume() {
         super.onResume();
         today_minute=Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*60+Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        set_bg();
         load_data();
         public_func.http_webapi(
                 "https://opendata.cwb.gov.tw/api/v1/rest/datastore/A-B0062-001", Headers.of(
