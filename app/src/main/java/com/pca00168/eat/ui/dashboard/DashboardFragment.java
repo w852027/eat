@@ -1,11 +1,13 @@
 package com.pca00168.eat.ui.dashboard;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.pca00168.eat.R;
 import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentDashboardBinding;
@@ -13,6 +15,8 @@ import com.pca00168.eat.public_func;
 import com.pca00168.eat.today_detail;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import org.json.JSONArray;
@@ -34,19 +38,26 @@ public class DashboardFragment extends Fragment {
         ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
 
-
-
-
-
-
-
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACTIVITY_RECOGNITION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{android.Manifest.permission.ACTIVITY_RECOGNITION},
+                    426);//426是自定的tag
+        }
 
         return root;
     }
-
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 426) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "GG", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     public void onDestroyView() {
-
         super.onDestroyView();
         root = null;
     }
