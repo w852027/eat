@@ -80,7 +80,11 @@ public class MainActivity extends Activity {
                             GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE7))&&
                             GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE8)) ) {
                         public_func.writeData(this,"name",google_user.getDisplayName());
-                        public_func.writeData(this,"avatar",google_user.getPhotoUrl().toString());
+                        try{
+                            public_func.writeData(this,"avatar",google_user.getPhotoUrl().toString());
+                        }catch (NullPointerException e){
+                            public_func.writeData(this,"avatar","https://cdn.cybassets.com/media/W1siZiIsIjExMTE0L3Byb2R1Y3RzLzM3NTU1MDU4L1RBNzI2NjEtMF8zYjMyZmRmNmIyMmQ3YmUzMGI5Mi5qcGVnIl0sWyJwIiwidGh1bWIiLCI0ODB4NDgwIl1d.jpeg?sha=d97d6847e727ecff");
+                        }
                         public_func.writeData(this,"email",google_user.getEmail());
                         requestAccountInfo(google_user);
                     } else
