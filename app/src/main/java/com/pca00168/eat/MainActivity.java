@@ -25,6 +25,12 @@ public class MainActivity extends Activity {
     GoogleSignInClient mGoogleSignInClient;
     private static final String CONTACTS_SCOPE = "https://www.googleapis.com/auth/user.gender.read";
     private static final String CONTACTS_SCOPE2 = "https://www.googleapis.com/auth/user.birthday.read";
+    private static final String CONTACTS_SCOPE3 = "https://www.googleapis.com/auth/fitness.activity.read";
+    private static final String CONTACTS_SCOPE4 = "https://www.googleapis.com/auth/fitness.activity.write";
+    private static final String CONTACTS_SCOPE5 = "https://www.googleapis.com/auth/fitness.nutrition.read";
+    private static final String CONTACTS_SCOPE6 = "https://www.googleapis.com/auth/fitness.nutrition.write";
+    private static final String CONTACTS_SCOPE7 = "https://www.googleapis.com/auth/fitness.sleep.read";
+    private static final String CONTACTS_SCOPE8 = "https://www.googleapis.com/auth/fitness.sleep.write";
     public void google_click(View view){
         findViewById(R.id.progress).setVisibility(View.VISIBLE);
         findViewById(R.id.start_or_not).setVisibility(View.INVISIBLE);
@@ -44,6 +50,12 @@ public class MainActivity extends Activity {
                 .requestProfile()
                 .requestScopes(new Scope(CONTACTS_SCOPE))
                 .requestScopes(new Scope(CONTACTS_SCOPE2))
+                .requestScopes(new Scope(CONTACTS_SCOPE3))
+                .requestScopes(new Scope(CONTACTS_SCOPE4))
+                .requestScopes(new Scope(CONTACTS_SCOPE5))
+                .requestScopes(new Scope(CONTACTS_SCOPE6))
+                .requestScopes(new Scope(CONTACTS_SCOPE7))
+                .requestScopes(new Scope(CONTACTS_SCOPE8))
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
         if(public_func.readData(this,"logged")!=""){
@@ -59,7 +71,14 @@ public class MainActivity extends Activity {
             try {
                 google_user = task.getResult(ApiException.class);
                 if(google_user!=null){
-                    if (GoogleSignIn.hasPermissions(google_user,new Scope(CONTACTS_SCOPE))&&GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE2)) ) {
+                    if (GoogleSignIn.hasPermissions(google_user,new Scope(CONTACTS_SCOPE))&&
+                            GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE2))&&
+                            GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE3))&&
+                            GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE4))&&
+                            GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE5))&&
+                            GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE6))&&
+                            GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE7))&&
+                            GoogleSignIn.hasPermissions(google_user, new Scope(CONTACTS_SCOPE8)) ) {
                         public_func.writeData(this,"name",google_user.getDisplayName());
                         public_func.writeData(this,"avatar",google_user.getPhotoUrl().toString());
                         public_func.writeData(this,"email",google_user.getEmail());
