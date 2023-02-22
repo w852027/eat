@@ -28,7 +28,7 @@ public class edit_today_detail extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //StatusBarUtils.setWindowStatusBarColor(this,R.color.main_green);
+        StatusBarUtils.setWindowStatusBarColor(this, R.color.transparent);
         setContentView(R.layout.edit_today_detail);
         kcal_value=findViewById(R.id.kcal_value);
         name=findViewById(R.id.name);

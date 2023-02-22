@@ -25,7 +25,7 @@ public class today_detail extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        StatusBarUtils.setWindowStatusBarColor(this,R.color.main_green);
+        StatusBarUtils.setWindowStatusBarColor(this, R.color.dialog_transparent);
         setContentView(R.layout.today_detial);
         is_request_input=getIntent().getBooleanExtra("request_input",true);
 

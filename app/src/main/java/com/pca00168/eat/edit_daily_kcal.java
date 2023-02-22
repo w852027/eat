@@ -19,6 +19,7 @@ public class edit_daily_kcal extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        StatusBarUtils.setWindowStatusBarColor(this, R.color.dialog_transparent);
         setContentView(R.layout.edit_daily_kcal);
         confirm_edit_btn=findViewById(R.id.confirm_edit_btn);
         is_request_input=getIntent().getBooleanExtra("request_input",true);

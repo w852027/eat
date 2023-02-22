@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="dialog_transparent">#4D000000</color>
+    <color name="transparent">#00000000</color>
     <color name="main_green">#FF71C4B5</color>
     <color name="main_pink">#FFF09090</color>
     <color name="main_yellow">#FFFCC91C</color>
