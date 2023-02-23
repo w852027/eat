@@ -14,9 +14,11 @@ import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class public_func {
@@ -69,7 +71,16 @@ public class public_func {
         Call call = (new OkHttpClient().newBuilder().build()).newCall(
                 new Request.Builder().url(url).headers(parameters).build()
         );
-        call.enqueue(new Callback() {
+        call.enqueue(httpCallback(completion));
+    }
+    public static void http_webapi(String url, RequestBody parameters, WebAPICallback completion){
+        Call call = (new OkHttpClient().newBuilder().build()).newCall(
+                new Request.Builder().url(url).post(parameters).build()
+        );
+        call.enqueue(httpCallback(completion));
+    }
+    private static Callback httpCallback(WebAPICallback completion){
+        return new Callback() {
             public void onResponse(Call call, Response response) throws IOException {
                 try{
                     completion.success(new JSONObject(response.body().string()));
@@ -81,7 +92,7 @@ public class public_func {
             public void onFailure(Call call, IOException e) {
                 completion.fail(e);
             }
-        });
+        };
     }
     public static String date2string(Date date){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
