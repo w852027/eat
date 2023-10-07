@@ -1,33 +1,15 @@
 package com.pca00168.eat;
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.FitnessOptions;
-import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.data.DataSet;
-import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.fitness.data.Field;
-import com.google.android.gms.fitness.request.DataReadRequest;
-import com.google.android.gms.fitness.result.DataReadResponse;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -38,7 +20,6 @@ import com.google.api.services.people.v1.model.Gender;
 import com.google.api.services.people.v1.model.Person;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 public class MainActivity extends Activity {
     GoogleSignInAccount google_user;
     GoogleSignInClient mGoogleSignInClient;
@@ -151,79 +132,10 @@ public class MainActivity extends Activity {
     }
 
     private void logged_in(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, google_fit_const);
-
-/*
-                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACTIVITY_RECOGNITION)) {
-                    //Toast.makeText(this, "被永遠拒絕，只能使用者手動給予權限", Toast.LENGTH_LONG).show();
-                    //開啟應用程式資訊，讓使用者手動給予權限
-                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    Uri uri = Uri.fromParts("package", getPackageName(), null);
-                    intent.setData(uri);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, "按下拒絕", Toast.LENGTH_LONG).show();
-                }
-*/
-
-            } else readFitnessData();
         startActivity(new Intent(this,Home.class));
         finish();
     }
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch(requestCode) {
-            case google_fit_const:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) { // 已取得權限，在此做後續處理
-                    readFitnessData();
-                } else {
-                    // 使用者拒絕，顯示對話框告知
-                }
-                break;
-            default:
-                break;
-        }
-    }
 
-    private void readFitnessData() {
-        FitnessOptions fitnessOptions = FitnessOptions.builder().addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ).build();
-        if (!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(this), fitnessOptions)) {
-            GoogleSignIn.requestPermissions(
-                    this,
-                    0x1001,
-                    GoogleSignIn.getLastSignedInAccount(this),
-                    fitnessOptions);
-            return;
-        }
-        long endTime = System.currentTimeMillis();
-        long startTime = endTime - (24 * 60 * 60 * 1000);
-        DataReadRequest readRequest = new DataReadRequest.Builder()
-                .read(DataType.TYPE_STEP_COUNT_DELTA)
-                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                .build();
-        Fitness.getHistoryClient(this, GoogleSignIn.getLastSignedInAccount(this))
-                .readData(readRequest)
-                .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
-                    public void onSuccess(DataReadResponse dataReadResponse) {
-                        for (DataSet dataSet : dataReadResponse.getDataSets()) {//這是一個循環，它會遍歷dataReadResult中的所有DataSet。每個DataSet是一組有關特定類型活動（例如步行或跑步）的資料。
-                            for (DataPoint dp : dataSet.getDataPoints()) {//對於每一個DataSet，。每一個DataPoint代表在一個特定時間段內的資料。
-                                for (Field field : dp.getDataType().getFields()) {//這個循環遍歷了DataPoint內的所有Field。Field描述了這個DataPoint內的特定類型的數據，例如步數。
-                                    if (field.equals(Field.FIELD_STEPS)) {//這是一個條件判斷，用於檢查當前的Field是否是步數。
-                                        int steps = dp.getValue(field).asInt();//如果上述的判斷為真，那麼這行代碼會從DataPoint中提取步數值，並將其存儲在steps變數中。
-                                        // 現在，'steps' 變數包含了這個 DataPoint 的步數數據。
-                                    }
-                                }
-                            }
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    public void onFailure(@NonNull Exception e) {
-                        //err(e.getMessage());
-                    }
-                });
-    }
     private void err(String msg){
         Toast.makeText(this,msg , Toast.LENGTH_LONG).show();
     }
