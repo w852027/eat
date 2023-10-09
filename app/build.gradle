@@ -51,4 +51,5 @@ dependencies {
     implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
     implementation 'com.google.android.gms:play-services-fitness:21.1.0'
     implementation 'com.github.soulqw:SoulPermission:1.4.0'
+    implementation 'com.github.getActivity:XXPermissions:18.3'
 }

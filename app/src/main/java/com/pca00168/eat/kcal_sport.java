@@ -5,7 +5,7 @@ public class kcal_sport implements Serializable {
     public long time=public_func.timestamp_now();
     public int kcal=0,icon_resource_id=0;
     public String name="";
-    kcal_sport(){
+    public kcal_sport(){
         super();
     }
     kcal_sport(short type,int kcal,String name,int icon_resource_id){

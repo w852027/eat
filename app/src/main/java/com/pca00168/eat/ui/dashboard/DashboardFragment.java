@@ -1,6 +1,8 @@
 package com.pca00168.eat.ui.dashboard;
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +10,31 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.FitnessOptions;
+import com.google.android.gms.fitness.data.DataPoint;
+import com.google.android.gms.fitness.data.DataSet;
+import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.fitness.data.Field;
+import com.google.android.gms.fitness.request.DataReadRequest;
+import com.google.android.gms.fitness.result.DataReadResponse;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.XXPermissions;
+import com.pca00168.eat.Home;
 import com.pca00168.eat.R;
 import com.pca00168.eat.User;
 import com.pca00168.eat.databinding.FragmentDashboardBinding;
+import com.pca00168.eat.kcal_sport;
 import com.pca00168.eat.public_func;
 import com.pca00168.eat.today_detail;
+import com.qw.soul.permission.SoulPermission;
+import com.qw.soul.permission.bean.Permission;
+import com.qw.soul.permission.callbcak.CheckRequestPermissionListener;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -24,6 +46,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.Headers;
 public class DashboardFragment extends Fragment {
     private View root;
@@ -38,23 +63,81 @@ public class DashboardFragment extends Fragment {
         ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
         layout.setVisibility(View.INVISIBLE);
 
-        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACTIVITY_RECOGNITION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{android.Manifest.permission.ACTIVITY_RECOGNITION},
-                    426);//426是自定的tag
-        }
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            XXPermissions.with(this)
+                    .permission(Manifest.permission.ACTIVITY_RECOGNITION)
+                    .request(new OnPermissionCallback() {
+                        public void onGranted(@NonNull List<String> permissions, boolean allGranted) {
+                            if (allGranted) {
+                                readFitnessData();
+                            }
+                        }
 
+                        public void onDenied(@NonNull List<String> permissions, boolean doNotAskAgain) {
+                            if (doNotAskAgain) {
+                            } else {
+                            }
+                        }
+                    });
+            /*SoulPermission.getInstance().checkAndRequestPermission(Manifest.permission.ACTIVITY_RECOGNITION,
+                    new CheckRequestPermissionListener() {
+                        public void onPermissionOk(Permission permission) {
+                            readFitnessData();
+                        }
+                        public void onPermissionDenied(Permission permission) {
+                            Toast.makeText(getActivity(),"deny", Toast.LENGTH_SHORT).show();
+                        }
+                    });*/
         return root;
     }
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 426) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "GG", Toast.LENGTH_SHORT).show();
-            }
+    private void readFitnessData() {
+        FitnessOptions fitnessOptions = FitnessOptions.builder().addDataType(DataType.TYPE_STEP_COUNT_DELTA, FitnessOptions.ACCESS_READ).build();
+        if (!GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(getActivity()), fitnessOptions)) {
+            GoogleSignIn.requestPermissions(
+                    this,
+                    0x1001,
+                    GoogleSignIn.getLastSignedInAccount(getActivity()),
+                    fitnessOptions);
+            return;
         }
+        long endTime = System.currentTimeMillis();
+        long startTime = endTime - (24 * 60 * 60 * 1000);
+        DataReadRequest readRequest = new DataReadRequest.Builder()
+                .read(DataType.TYPE_STEP_COUNT_DELTA)
+                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+                .build();
+        Fitness.getHistoryClient(getActivity(), GoogleSignIn.getLastSignedInAccount(getActivity()))
+                .readData(readRequest)
+                .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
+                    public void onSuccess(DataReadResponse dataReadResponse) {
+                        int steps = 0;
+                        kcal_sport sport = new kcal_sport();
+                        for (DataSet dataSet : dataReadResponse.getDataSets()) {//這是一個循環，它會遍歷dataReadResult中的所有DataSet。每個DataSet是一組有關特定類型活動（例如步行或跑步）的資料。
+                            for (DataPoint dp : dataSet.getDataPoints()) {//對於每一個DataSet，。每一個DataPoint代表在一個特定時間段內的資料。
+                                for (Field field : dp.getDataType().getFields()) {//這個循環遍歷了DataPoint內的所有Field。Field描述了這個DataPoint內的特定類型的數據，例如步數。
+                                    if (field.equals(Field.FIELD_STEPS)) {//這是一個條件判斷，用於檢查當前的Field是否是步數。
+                                        steps += dp.getValue(field).asInt();//如果上述的判斷為真，那麼這行代碼會從DataPoint中提取步數值，並將其存儲在steps變數中。
+                                        sport.time = dp.getEndTime(TimeUnit.SECONDS);;
+                                        // 現在，'steps' 變數包含了這個 DataPoint 的步數數據。
+                                    }
+                                }
+                            }
+                            sport.kcal = (int) (steps*0.03);
+                            sport.name = "室外步行";
+                            sport.type = 10;
+                            sport.icon_resource_id = R.drawable.sport_item_walk;
+                            if(sport.kcal>0) {
+                                User.add_kcal_output(getActivity(), sport);
+                                load_data();
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    public void onFailure(@NonNull Exception e) {
+                        //err(e.getMessage());
+                    }
+                });
     }
 
     public void onDestroyView() {
@@ -70,6 +153,7 @@ public class DashboardFragment extends Fragment {
         today_minute=Calendar.getInstance().get(Calendar.HOUR_OF_DAY)*60+Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         set_bg();
         load_data();
+        /*
         public_func.http_webapi(
                 "https://opendata.cwb.gov.tw/api/v1/rest/datastore/A-B0062-001", Headers.of(
                         new String[]{"Authorization","CWB-F93BFC87-7315-4DB8-A6F8-028CFC6AA3C0",
@@ -101,7 +185,7 @@ public class DashboardFragment extends Fragment {
                     public void fail(IOException e) {
                     }
                 }
-        );
+        );*/
     }
 
     private void load_data(){
