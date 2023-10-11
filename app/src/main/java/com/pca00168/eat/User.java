@@ -134,13 +134,20 @@ public class User {
                 null               // The sort order
         );
         int num = 0;
-        while(cursor.moveToNext()) {
-            num = cursor.getInt(cursor.getColumnIndexOrThrow("num"));
+        if(cursor.getCount()==0){
+            ContentValues values = new ContentValues();
+            values.put("time",today_timestamp);
+            values.put("num",0);
+            s.insert("google_fit_step", null, values);
+            s.close();
+        } else {
+            while (cursor.moveToNext()) {
+                num = cursor.getInt(cursor.getColumnIndexOrThrow("num"));
+            }
         }
         cursor.close();
         return num;
     }
-
     public static clothings load_clothings(Context context,short main_type){//-1:全部
         ThingDataBaseHelper db=new ThingDataBaseHelper(context);
         SQLiteDatabase s = db.getReadableDatabase();

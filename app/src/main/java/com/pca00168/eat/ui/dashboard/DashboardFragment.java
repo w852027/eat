@@ -123,11 +123,12 @@ public class DashboardFragment extends Fragment {
                             }
                             if(steps>original_step) {
                                 User.edit_google_fit_step_num(getActivity(), steps, startTime);
-
-
+                                int finalSteps = steps-original_step;
                                 getActivity().runOnUiThread(new Runnable() {
                                     public void run() {
-                                        Toast.makeText(getActivity(),"add steps", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(),String.format("add steps: %d", finalSteps), Toast.LENGTH_SHORT).show();
+                                        TextView step_value=root.findViewById(R.id.step_value);
+                                        step_value.setText(String.valueOf(User.load_google_fit_step_num(getActivity(),public_func.timestamp_today())));
                                     }
                                 });
 
@@ -211,6 +212,8 @@ public class DashboardFragment extends Fragment {
                         public_func.timestamp_now()
                 ).total_kcal())
         );
+        TextView step_value=root.findViewById(R.id.step_value);
+        step_value.setText(String.valueOf(User.load_google_fit_step_num(getActivity(),public_func.timestamp_today())));
         ConstraintLayout layout=root.findViewById(R.id.kcal_toast_view);
         String delta_kcal=public_func.readData(getActivity(),"delta_kcal");
         if(delta_kcal!=""){
