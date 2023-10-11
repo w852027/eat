@@ -60,6 +60,15 @@ public class User {
         s.update( "output_kcal",values,String.format("time=%d",sport.time),null);
         s.close();
     }
+    public static void edit_google_fit_step_num(Context context, int step, long today_timestamp){
+        ContentValues values = new ContentValues();
+        values.put("num", step);
+        values.put("time", today_timestamp);
+        SqlDataBaseHelper db=new SqlDataBaseHelper(context);
+        SQLiteDatabase s = db.getWritableDatabase();
+        s.update( "google_fit_step",values,String.format("time=%d",today_timestamp),null);
+        s.close();
+    }
     public static kcal_foods load_kcal_input(Context context,int food_type,long from_timestamp,long to_timestamp){//-1:全部
         SqlDataBaseHelper db=new SqlDataBaseHelper(context);
         SQLiteDatabase s = db.getReadableDatabase();
@@ -111,6 +120,25 @@ public class User {
         }
         cursor.close();
         return items;
+    }
+    public static int load_google_fit_step_num(Context context,long today_timestamp){
+        SqlDataBaseHelper db=new SqlDataBaseHelper(context);
+        SQLiteDatabase s = db.getReadableDatabase();
+        Cursor cursor = s.query(
+                "google_fit_step",   // The table to query
+                null,             // The array of columns to return (pass null to get all)
+                String.format("time = %d",today_timestamp),  // The columns for the WHERE clause
+                null,        // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+        int num = 0;
+        while(cursor.moveToNext()) {
+            num = cursor.getInt(cursor.getColumnIndexOrThrow("num"));
+        }
+        cursor.close();
+        return num;
     }
 
     public static clothings load_clothings(Context context,short main_type){//-1:全部

@@ -100,38 +100,42 @@ public class DashboardFragment extends Fragment {
                     fitnessOptions);
             return;
         }
-        long endTime = System.currentTimeMillis();
-        long startTime = endTime - (24 * 60 * 60 * 1000);
+        long startTime = public_func.timestamp_today();
+        long endTime = startTime + 86400;
+        int original_step = User.load_google_fit_step_num(getActivity(),startTime);
         DataReadRequest readRequest = new DataReadRequest.Builder()
                 .read(DataType.TYPE_STEP_COUNT_DELTA)
-                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+                .setTimeRange(startTime, endTime, TimeUnit.SECONDS)
                 .build();
         Fitness.getHistoryClient(getActivity(), GoogleSignIn.getLastSignedInAccount(getActivity()))
                 .readData(readRequest)
                 .addOnSuccessListener(new OnSuccessListener<DataReadResponse>() {
                     public void onSuccess(DataReadResponse dataReadResponse) {
                         int steps = 0;
-                        kcal_sport sport = new kcal_sport();
                         for (DataSet dataSet : dataReadResponse.getDataSets()) {//這是一個循環，它會遍歷dataReadResult中的所有DataSet。每個DataSet是一組有關特定類型活動（例如步行或跑步）的資料。
                             for (DataPoint dp : dataSet.getDataPoints()) {//對於每一個DataSet，。每一個DataPoint代表在一個特定時間段內的資料。
                                 for (Field field : dp.getDataType().getFields()) {//這個循環遍歷了DataPoint內的所有Field。Field描述了這個DataPoint內的特定類型的數據，例如步數。
                                     if (field.equals(Field.FIELD_STEPS)) {//這是一個條件判斷，用於檢查當前的Field是否是步數。
                                         steps += dp.getValue(field).asInt();//如果上述的判斷為真，那麼這行代碼會從DataPoint中提取步數值，並將其存儲在steps變數中。
-                                        sport.time = dp.getEndTime(TimeUnit.SECONDS);;
                                         // 現在，'steps' 變數包含了這個 DataPoint 的步數數據。
                                     }
                                 }
                             }
-                            sport.kcal = (int) (steps*0.03);
-                            sport.name = "室外步行";
-                            sport.type = 10;
-                            sport.icon_resource_id = R.drawable.sport_item_walk;
-                            if(sport.kcal>0) {
-                                User.add_kcal_output(getActivity(), sport);
-                                load_data();
+                            if(steps>original_step) {
+                                User.edit_google_fit_step_num(getActivity(), steps, startTime);
+
+
+                                getActivity().runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        Toast.makeText(getActivity(),"add steps", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
                             }
                         }
                     }
+
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     public void onFailure(@NonNull Exception e) {

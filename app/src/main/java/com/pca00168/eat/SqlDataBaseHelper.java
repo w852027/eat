@@ -24,10 +24,17 @@ public class SqlDataBaseHelper extends SQLiteOpenHelper {
                 "kcal INTEGER not null" +
                 ")"
         );
+        db.execSQL( "CREATE TABLE IF NOT EXISTS google_fit_step (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "time INTEGER not null," +
+                "num INTEGER not null" +
+                ")"
+        );
     }
     
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE input_kcal");
         db.execSQL("DROP TABLE output_kcal");
+        db.execSQL("DROP TABLE google_fit_step");
     }
 }
