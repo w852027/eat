@@ -101,7 +101,7 @@ public class DashboardFragment extends Fragment {
             return;
         }
         long startTime = public_func.timestamp_today();
-        long endTime = startTime + 86400;
+        long endTime = public_func.timestamp_now();
         int original_step = User.load_google_fit_step_num(getActivity(),startTime);
         DataReadRequest readRequest = new DataReadRequest.Builder()
                 .read(DataType.TYPE_STEP_COUNT_DELTA)

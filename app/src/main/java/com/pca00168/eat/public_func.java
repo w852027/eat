@@ -115,10 +115,12 @@ public class public_func {
         return (new Date()).getTime()/1000;
     }
     public static long timestamp_today(){
-        long now= timestamp_now();
-        now/=86400;
-        now*=86400;
-        return now;
+        Calendar calendar = Calendar.getInstance(); // 獲得當前的時間
+        calendar.set(Calendar.HOUR_OF_DAY, 0);      // 設定時為00
+        calendar.set(Calendar.MINUTE, 0);           // 設定分為00
+        calendar.set(Calendar.SECOND, 0);           // 設定秒為00
+        calendar.set(Calendar.MILLISECOND, 0);      // 設定毫秒為000
+        return calendar.getTime().getTime()/1000;   // 返回時間的timestamp
     }
     public static long timestamp_a_week_ago(){
         return timestamp_today()-604800;
